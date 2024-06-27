@@ -5,10 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scaled=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-    <h1>Welcome to the Home Page</h1>
-    <a href="/register">Register</a>
-    <a href="/login">Login</a>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">Your Logo</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="/register">Register</a></li>
+                <li><a href="/login">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Course Selection Made Easy</h1>
+        </div>
+        <div class="hero-image"></div>
+    </section>
+    <section id="about" class="about">
+        <div class="container">
+            <h2>What We Offer</h2>
+            <p>Your description of what the website offers.</p>
+        </div>
+    </section>
 </body>
 </html>
