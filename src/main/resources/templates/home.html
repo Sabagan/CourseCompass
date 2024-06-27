@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scaled=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
@@ -13,6 +12,7 @@
             <div class="logo">Your Logo</div>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
+                <li><a href="#service">Service</a></li>
                 <li><a href="/register">Register</a></li>
                 <li><a href="/login">Login</a></li>
             </ul>
@@ -27,8 +27,32 @@
     <section id="about" class="about">
         <div class="container">
             <h2>What We Offer</h2>
-            <p>Your description of what the website offers.</p>
+            <p>TMU Students do you find yourself planning your university timetables but find the school only has it open
+            per semester. Have no Fear, CourseCompass is here. We offer the ability to add courses to your cart and plan
+            out which semester of which year it belongs to. You can even set space aside for job term by selecting its
+            appropriate course</p>
         </div>
     </section>
+    <section id="service" class="about">
+        <div class="container">
+            <h2>What We Offer</h2>
+            <p>TMU Students do you find yourself planning your university timetables but find the school only has it open
+                per semester. Have no Fear, CourseCompass is here. We offer the ability to add courses to your cart and plan
+                out which semester of which year it belongs to. You can even set space aside for job term by selecting its
+                appropriate course</p>
+        </div>
+    </section>
+
+    <script>
+        window.addEventListener('scroll',
+        function() {
+            const scrolled = window.scrollY;
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            const opacity = 1 - (scrolled / heroHeight);
+
+            document.querySelector('.hero-image').style.opacity = opacity;
+        });
+    </script>
 </body>
+
 </html>
