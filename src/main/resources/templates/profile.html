@@ -1,15 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
     <title>User Profile</title>
 </head>
 <body>
-    <h1>Welcome to Your Profile</h1>
-    <p>Hello, <span th:text="${loggedInUser.username}"></span></p>
-    <a href="/">Home</a>
+<nav>
     <a href="/logout">Logout</a>
+    <a href="">Account</a>
+    <a href="">Plan</a>
+    <a href="/mycourses">My Courses</a>
+    <a href="/">Home</a>
+    <a class="left">Course Catalogue</a>
+</nav>
+
+<div class="container">
+    <h1>Course List</h1>
+    <div class="search-container">
+        <select id="searchCriteria">
+            <option value="program">Program / Faculty</option>
+            <option value="code">Course Code</option>
+            <option value="name">Course Name</option>
+        </select>
+        <select id="searchType">
+            <option value="contains">Contains</option>
+            <option value="equals">Equals</option>
+            <option value="startsWith">Starts With</option>
+        </select>
+        <input type="text" id="search" placeholder="Search..." onkeyup="filterCourses()">
+    </div>
+    <table id="courseTable">
+        <thead>
+        <tr>
+            <th>Program / Faculty</th>
+            <th>Course Code</th>
+            <th>Course Name</th>
+            <th>Course Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="course : ${courses}">
+            <td th:text="${course.course_program}"></td>
+            <td th:text="${course.course_code}"></td>
+            <td th:text="${course.course_name}"></td>
+            <td th:text="${course.course_description}"></td>
+            <td>
+                <button class="btn" onclick="addCourseToUser('${course.course_code}')">Add</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function filterCourses() {
+        let input = document.getElementById('search').value.toLowerCase();
+        let criteria = document.getElementById('searchCriteria').value;
+        let searchType = document.getElementById('searchType').value;
+        let rows = document.getElementById('courseTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+        for (let i = 0; i < rows.length; i++) {
+            let cell;
+            if (criteria === 'program') {
+                cell = rows[i].getElementsByTagName('td')[0].textContent.toLowerCase();
+            } else if (criteria === 'code') {
+                cell = rows[i].getElementsByTagName('td')[1].textContent.toLowerCase();
+            } else if (criteria === 'name') {
+                cell = rows[i].getElementsByTagName('td')[2].textContent.toLowerCase();
+            }
+
+            let match = false;
+            if (searchType === 'contains' && cell.includes(input)) {
+                match = true;
+            } else if (searchType === 'equals' && cell === input) {
+                match = true;
+            } else if (searchType === 'startsWith' && cell.startsWith(input)) {
+                match = true;
+            }
+
+            if (match) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    }
+
+    function addCourseToUser(courseCode) {
+        fetch(`/addCourseToUser?courseCode=${courseCode}`, {
+            method: 'POST'
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Course added successfully');
+                } else {
+                    alert('Failed to add course');
+                }
+            });
+    }
+</script>
+<div class="footer">
+    &copy; 2024 CourseCompass
+</div>
 </body>
 </html>
