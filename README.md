@@ -33,15 +33,17 @@ WILL PROVIDE NEARING SPRINT RELEASE
 
 ### Build and Run the Application
 
+```bash
 mvn clean install
 mvn spring-boot:run
+```
 
-Open the web browser and navigate to 'https:localhost:8080' to access the application.
+Open the web browser and navigate to `https:localhost:8080` to access the application.
 
 ## Important to Note
 
 - MySQL must be running and the details for it in application.properties must be correct
-- All dependencies must be installed you can use the 'mvn clean install' in the case that it is highlighted, indicating a dependency wasn't installed
+- All dependencies must be installed you can use the ``mvn clean install`` in the case that it is highlighted, indicating a dependency wasn't installed
 - You might need to re-load the IDE
 - If you wish to use this for another institution, you will need to adjust the WebScraping python file to match the structure of the page you are obtaining the course data from OR if you happen to have a JSON-file following the same structure you could just use that.
 - Ensure project files are in the correct locations, if you move files around, ensure you refactor changes if necessary
