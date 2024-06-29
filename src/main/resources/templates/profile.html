@@ -47,7 +47,7 @@
             <td th:text="${course.course_name}"></td>
             <td th:text="${course.course_description}"></td>
             <td>
-                <button class="btn" onclick="addCourseToUser('${course.course_code}')">Add</button>
+                <button type="button" onclick="addCourse('${course.course_code}')">Add</button>
             </td>
         </tr>
         </tbody>
@@ -88,16 +88,27 @@
         }
     }
 
-    function addCourseToUser(courseCode) {
-        fetch(`/addCourseToUser?courseCode=${courseCode}`, {
-            method: 'POST'
+    function addCourse(courseCode) {
+        fetch('/addCourse', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'courseCode': courseCode
+            })
         })
-            .then(response => {
-                if (response.ok) {
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
                     alert('Course added successfully');
+                    // Optionally update the UI or reload data
                 } else {
-                    alert('Failed to add course');
+                    alert('Failed to add course: ' + data.message);
                 }
+            })
+            .catch(error => {
+                console.error('Error adding course:', error);
             });
     }
 </script>

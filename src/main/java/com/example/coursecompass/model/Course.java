@@ -1,10 +1,23 @@
 package com.example.coursecompass.model;
 
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
 public class Course {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String course_program;
     private String course_code;
     private String course_name;
     private String course_description;
+
+    @ManyToMany(mappedBy = "courses")
+    private Set<User> users = new HashSet<User>();
 
     public Course() {
 
@@ -15,6 +28,14 @@ public class Course {
         this.course_code = course_code;
         this.course_name = course_name;
         this.course_description = course_description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCourse_program() {
@@ -47,5 +68,13 @@ public class Course {
 
     public void setCourse_description(String course_description) {
         this.course_description = course_description;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }

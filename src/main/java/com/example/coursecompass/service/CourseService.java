@@ -28,4 +28,11 @@ public class CourseService {
     public List<Course> getCourses() {
         return courses;
     }
+
+    public Course findCourseByCode(String courseCode) {
+        return courses.stream()
+                .filter(course -> course.getCourse_code().equalsIgnoreCase(courseCode))
+                .findFirst()
+                .orElse(null);
+    }
 }
