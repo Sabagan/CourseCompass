@@ -5,8 +5,6 @@ import com.example.coursecompass.model.User;
 import com.example.coursecompass.service.CourseService;
 import com.example.coursecompass.service.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@SessionAttributes("username")
 public class AppController {
 
     @Autowired
@@ -68,7 +65,7 @@ public class AppController {
     }
 
     @GetMapping("/profile")
-    public String profile(Model model, HttpSession session) {
+    public String showProfile(Model model, HttpSession session) {
         String username = (String) session.getAttribute("loggedInUser");
         if (username == null) {
             return "redirect:/login";
@@ -81,30 +78,42 @@ public class AppController {
     }
 
     @GetMapping("/mycourses")
-    public String showMyCourses(Model model) {
+    public String showMyCourses(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("loggedInUser");
+        if (username == null)
+            return "redirect:/login";
 
+        User loggedInUser = userService.findUserByUsername(username);
+        model.addAttribute("courses", loggedInUser.getCourses());
         return "mycourses";
     }
 
     @PostMapping("/addCourse")
-    @ResponseBody
-    public ResponseEntity<Object> addCourse(@RequestParam String courseCode, HttpSession session) {
+    public String addCourse(@RequestParam("courseProgram") String courseProgram,
+                            @RequestParam("courseCode") String courseCode,
+                            @RequestParam("courseName") String courseName,
+                            @RequestParam("courseDescription") String courseDescription,
+                            HttpSession session) {
+        // Get logged-in user's username from session
         String username = (String) session.getAttribute("loggedInUser");
-        if (username == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
-        }
 
-        User user = userService.findUserByUsername(username);
-        Course course = courseService.findCourseByCode(courseCode);
+        // Find user by username
+        User loggedInUser = userService.findUserByUsername(username);
 
-        if (course != null) {
-            user.addCourse(course);
-            userService.saveUser(user);
-            return ResponseEntity.ok().body("Course added successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
-        }
+        // Create new Course object
+        Course newCourse = new Course(courseProgram, courseCode, courseName, courseDescription);
+
+        // Save the new course
+        courseService.saveCourse(newCourse);
+
+        // Add course to user's courses and save user (assuming UserService handles user and course saving)
+        loggedInUser.addCourse(newCourse);
+        userService.saveUser(loggedInUser);
+
+        // Redirect back to profile page after adding course
+        return "redirect:/profile";
     }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {

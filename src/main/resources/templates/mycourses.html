@@ -94,16 +94,18 @@
     <table>
         <thead>
         <tr>
+            <th>Course Program</th>
             <th>Course Code</th>
             <th>Course Name</th>
             <th>Course Description</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="course : ${myCourses}">
-            <td th:text="${course.course_code}"></td>
-            <td th:text="${course.course_name}"></td>
-            <td th:text="${course.course_description}"></td>
+        <tr th:each="course : ${courses}">
+            <td th:text="${course.courseProgram}"></td>
+            <td th:text="${course.courseCode}"></td>
+            <td th:text="${course.courseName}"></td>
+            <td th:text="${course.courseDescription}"></td>
         </tr>
         </tbody>
     </table>

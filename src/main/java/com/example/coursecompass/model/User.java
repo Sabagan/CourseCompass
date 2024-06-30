@@ -11,6 +11,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String username;
     private String password;
 
@@ -22,9 +23,7 @@ public class User {
     )
     private Set<Course> courses = new HashSet<>();
 
-    public User() {
-
-    }
+    public User() {}
 
     public Long getId() {
         return id;
