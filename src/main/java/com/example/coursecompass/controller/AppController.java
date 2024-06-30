@@ -80,16 +80,10 @@ public class AppController {
         return "profile";
     }
 
-    @GetMapping("/myCourses")
-    public String myCourses(HttpSession session, Model model) {
-        String username = (String) session.getAttribute("loggedInUser");
-        if (username == null) {
-            // Handle unauthorized access, redirect to login or show an error
-            return "redirect:/login"; // Example redirect to login page
-        }
-        User user = userService.findUserByUsername(username);
-        model.addAttribute("myCourses", user.getCourses());
-        return "myCourses";
+    @GetMapping("/mycourses")
+    public String showMyCourses(Model model) {
+
+        return "mycourses";
     }
 
     @PostMapping("/addCourse")
