@@ -47,3 +47,13 @@ Open the web browser and navigate to `https:localhost:8080` to access the applic
 - You might need to re-load the IDE
 - If you wish to use this for another institution, you will need to adjust the WebScraping python file to match the structure of the page you are obtaining the course data from OR if you happen to have a JSON-file following the same structure you could just use that.
 - Ensure project files are in the correct locations, if you move files around, ensure you refactor changes if necessary
+
+## Debugging
+If not running at all, possibly due to XAMPP and phpMyAdmin (based on my experience) and if that's the case the following should help:
+```
+Rename folder mysql/data to mysql/data_old
+Make a copy of mysql/backup folder and name it as mysql/data
+Copy all your database folders from mysql/data_old into mysql/data (except mysql, performance_schema, and phpmyadmin folders)
+Copy mysql/data_old/ibdata1 file into mysql/data folder
+Start MySQL from XAMPP control panel, If it is started already then restart it.
+```
