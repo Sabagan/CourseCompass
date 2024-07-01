@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #4c4b48;
+    background-color: #1b1b32;
 }
 
 nav {
@@ -30,10 +30,12 @@ nav .left {
 
 .container {
     padding: 20px;
+    width: 100%;
+    overflow-x: auto;
 }
 
 h1 {
-    color: #333;
+    color: whitesmoke;
 }
 
 .search-container {
@@ -50,8 +52,11 @@ h1 {
 table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: auto;
     margin-top: 20px;
-    background-color: #fff;
+    margin-bottom: 50px;
+    background-color: #9180de;
+    color: whitesmoke;
 }
 
 table th, table td {
@@ -60,16 +65,16 @@ table th, table td {
 }
 
 table th {
-    background-color: #c5332d;
+    background-color: #624186;
     text-align: left;
 }
 
 table tr:nth-child(even) {
-    background-color: #c55a50;
+    background-color: #624186;
 }
 
 table tr:hover {
-    background-color: #c58d8f;
+    background-color: #61595b;
 }
 
 .footer {
