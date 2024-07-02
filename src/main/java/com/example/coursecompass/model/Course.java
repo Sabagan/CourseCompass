@@ -1,16 +1,12 @@
 package com.example.coursecompass.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Entity
-//@Table(name = "course")
 public class Course {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonProperty("course_program")
@@ -23,10 +19,8 @@ public class Course {
     private String courseName;
 
     @JsonProperty("course_description")
-    //@Column(name = "course_description", columnDefinition = "text")
     private String courseDescription;
 
-    //@ManyToMany(mappedBy = "courses")
     private Set<User> users = new HashSet<User>();
 
     public Course() {}

@@ -1,8 +1,10 @@
 package com.example.coursecompass.controller;
 
 import com.example.coursecompass.model.Course;
+import com.example.coursecompass.model.Mycourse;
 import com.example.coursecompass.model.User;
 import com.example.coursecompass.service.CourseService;
+import com.example.coursecompass.service.MycourseService;
 import com.example.coursecompass.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
@@ -23,6 +25,9 @@ public class AppController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private MycourseService mycourseService;
 
     @GetMapping("/")
     public String home() {
@@ -137,8 +142,8 @@ public class AppController {
         if (username == null)
             return "redirect:/login";
 
-        User loggedInUser = userService.findUserByUsername(username);
-        model.addAttribute("courses", loggedInUser.getCourses());
+        List<Mycourse> courses = mycourseService.findAll();
+        model.addAttribute("courses", courses);
         return "mycourses";
     }
 
@@ -148,21 +153,20 @@ public class AppController {
                             @RequestParam("courseName") String courseName,
                             @RequestParam("courseDescription") String courseDescription,
                             HttpSession session) {
-        // Get logged-in user's username from session
         String username = (String) session.getAttribute("loggedInUser");
-
-        // Find user by username
-        User loggedInUser = userService.findUserByUsername(username);
+        User user = userService.findUserByUsername(username);
+        Long userId = user.getId();
 
         // Create new Course object
-        Course newCourse = new Course(courseProgram, courseCode, courseName, courseDescription);
+        Mycourse newCourse = new Mycourse();
+        newCourse.setUserId(userId);
+        newCourse.setCourseCode(courseCode);
+        newCourse.setCourseName(courseName);
+        newCourse.setCourseDescription(courseDescription);
+        newCourse.setCourseProgram(courseProgram);
 
         // Save the new course
-        courseService.saveCourse(newCourse);
-
-        // Add course to user's courses and save user (assuming UserService handles user and course saving)
-        loggedInUser.addCourse(newCourse);
-        userService.saveUser(loggedInUser);
+        mycourseService.save(newCourse);
 
         // Redirect back to profile page after adding course
         return "redirect:/profile";
