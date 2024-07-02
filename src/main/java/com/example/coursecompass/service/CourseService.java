@@ -1,6 +1,6 @@
 package com.example.coursecompass.service;
 
-import com.example.coursecompass.repository.CourseRepository;
+import com.example.coursecompass.dao.CourseDao;
 import com.example.coursecompass.model.Course;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,17 +14,18 @@ import java.util.List;
 public class CourseService {
 
     @Autowired
-    private CourseRepository courseRepository;
-    // private List<Course> courses;
+    private CourseDao courseDao;
 
     @PostConstruct
     public void init() {
         try {
-            if (courseRepository.count() == 0) {
+            if (courseDao.count() == 0) {
                 ObjectMapper mapper = new ObjectMapper();
                 File jsonFile = new File("src/main/python/data/courses.json");
                 List<Course> courses = mapper.readValue(jsonFile, new TypeReference<List<Course>>() {});
-                courseRepository.saveAll(courses);
+                for (Course course : courses) {
+                    courseDao.save(course);
+                }
             }
         }
         catch (Exception e) {
@@ -33,23 +34,10 @@ public class CourseService {
     }
 
     public List<Course> getCourses() {
-        //return courses;
-        return courseRepository.findAll(); //new
-    }
-
-    public Course findCourseByCode(String courseCode) {
-//        return courses.stream()
-//                .filter(course -> course.getCourse_code().equalsIgnoreCase(courseCode))
-//                .findFirst()
-//                .orElse(null);
-        return courseRepository.findByCourseCode(courseCode); // new
-    }
-
-    public void addCourse(Course course) {
-        courseRepository.save(course);
+        return courseDao.findAll(); //new
     }
 
     public void saveCourse(Course course) {
-        courseRepository.save(course);
+        courseDao.save(course);
     }
 }

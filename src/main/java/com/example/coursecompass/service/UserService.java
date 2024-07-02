@@ -1,27 +1,31 @@
 package com.example.coursecompass.service;
 
+import com.example.coursecompass.dao.UserDao;
 import com.example.coursecompass.model.Course;
 import com.example.coursecompass.model.User;
-import com.example.coursecompass.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserDao userDao;
 
+    @Transactional
     public void saveUser(User user) {
-        userRepository.save(user);
+        userDao.save(user);
     }
 
+    @Transactional
     public User findUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userDao.findByUsername(username);
     }
 
+    @Transactional
     public void addCourseToUser(User user, Course course) {
         user.addCourse(course);
-        userRepository.save(user);
+        userDao.save(user);
     }
 }

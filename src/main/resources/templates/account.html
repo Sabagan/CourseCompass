@@ -148,15 +148,13 @@
         })
             .then(response => response.json())
             .then(data => {
-                const messageDiv = document.getElementById('message');
                 if (data.success) {
-                    messageDiv.className = 'message success';
-                    messageDiv.textContent = 'Account updated successfully!';
+                    // Display success message or handle success case
+                    console.log('Account updated successfully!');
                 } else {
-                    messageDiv.className = 'message error';
-                    messageDiv.textContent = 'Error updating account.';
+                    // Display error message or handle error case
+                    console.error('Error updating account:', data.error);
                 }
-                messageDiv.style.display = 'block';
             })
             .catch(error => console.error('Error updating account:', error));
     }

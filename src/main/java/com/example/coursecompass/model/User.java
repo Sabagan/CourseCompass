@@ -4,12 +4,12 @@ import jakarta.persistence.*;
 
 import java.util.*;
 
-@Entity
-@Table(name = "`user`") // Use backticks to escape the reserved keyword
+//@Entity
+//@Table(name = "`user`") // Use backticks to escape the reserved keyword
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
@@ -18,12 +18,12 @@ public class User {
     private Date dob;
     private String email;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_courses",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id")
-    )
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//            name = "user_courses",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "course_id")
+//    )
     private Set<Course> courses = new HashSet<>();
 
     public User() {}

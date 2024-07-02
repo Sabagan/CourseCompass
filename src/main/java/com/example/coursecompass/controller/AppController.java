@@ -51,11 +51,13 @@ public class AppController {
         return userService.findUserByUsername(username);
     }
 
-    @GetMapping("/account/update")
+    @PostMapping("/account/update")
     @ResponseBody
     public Map<String, Object> updateAccount(@RequestBody User updatedUser, HttpSession session) {
         String username = (String) session.getAttribute("loggedInUser");
         User currentUser = userService.findUserByUsername(username);
+
+        Map<String, Object> response = new HashMap<>();
 
         if (currentUser != null) {
             // Update fields
@@ -66,15 +68,12 @@ public class AppController {
             userService.saveUser(currentUser);
 
             // Return success response
-            Map<String, Object> response = new HashMap<>();
             response.put("success", true);
-            return response;
         } else {
             // Return error response
-            Map<String, Object> response = new HashMap<>();
             response.put("success", false);
-            return response;
         }
+        return response;
     }
 
     @GetMapping("/recommendations")
