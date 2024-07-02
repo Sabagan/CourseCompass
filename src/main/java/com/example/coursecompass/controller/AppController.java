@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AppController {
@@ -25,6 +27,59 @@ public class AppController {
     @GetMapping("/")
     public String home() {
         return "home";
+    }
+
+    @GetMapping("/plan")
+    public String showPlan() {
+        return "plan";
+    }
+
+    @GetMapping("/welcome")
+    public String showWelcome() {
+        return "welcome";
+    }
+
+    @GetMapping("/account")
+    public String showAccount() {
+        return "account";
+    }
+
+    @GetMapping("/account/data")
+    @ResponseBody
+    public User getUserAccount(HttpSession session) {
+        String username = (String) session.getAttribute("loggedInUser");
+        return userService.findUserByUsername(username);
+    }
+
+    @GetMapping("/account/update")
+    @ResponseBody
+    public Map<String, Object> updateAccount(@RequestBody User updatedUser, HttpSession session) {
+        String username = (String) session.getAttribute("loggedInUser");
+        User currentUser = userService.findUserByUsername(username);
+
+        if (currentUser != null) {
+            // Update fields
+            currentUser.setName(updatedUser.getName());
+            currentUser.setDob(updatedUser.getDob());
+            currentUser.setEmail(updatedUser.getEmail());
+
+            userService.saveUser(currentUser);
+
+            // Return success response
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            return response;
+        } else {
+            // Return error response
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            return response;
+        }
+    }
+
+    @GetMapping("/recommendations")
+    public String showRecommendations() {
+        return "recommendations";
     }
 
     @GetMapping("/register")
@@ -56,7 +111,7 @@ public class AppController {
             model.addAttribute("username", user.getUsername());
             List<Course> courses = courseService.getCourses();
             model.addAttribute("courses", courses);
-            return "redirect:/profile";
+            return "redirect:/welcome";
         }
         else {
             model.addAttribute("message", "Invalid username or password");

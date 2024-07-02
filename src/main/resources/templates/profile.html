@@ -4,17 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
     <title>User Profile</title>
 </head>
 <body>
-<nav>
-    <a href="/logout">Logout</a>
-    <a href="">Account</a>
-    <a href="">Plan</a>
-    <a href="/mycourses">My Courses</a>
-    <a href="/">Home</a>
-    <a class="left">Course Catalogue</a>
-</nav>
+<header>
+    <div class="container">
+        <div id="branding">
+            <img src="/images/logo.png" alt="Course Compass Logo" style="width: 50px; height: 50px;">
+            <h1>Course Compass</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/welcome">Home</a></li>
+                <li><a href="/account">Account</a></li>
+                <li><a href="/profile">Course Catalogue</a></li>
+                <li><a href="/mycourses">My Courses</a></li>
+                <li><a href="/plan">Plan</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<!--<nav>-->
+<!--    <a href="/logout">Logout</a>-->
+<!--    <a href="/account">Account</a>-->
+<!--    <a href="/plan">Plan</a>-->
+<!--    <a href="/mycourses">My Courses</a>-->
+<!--    <a href="/welcome">Home</a>-->
+<!--    <a class="left">Course Catalogue</a>-->
+<!--</nav>-->
 
 <div class="container">
     <h1>Course List</h1>

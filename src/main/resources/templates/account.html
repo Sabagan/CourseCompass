@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #35424a;
+            border-bottom: 2px solid #e8491d;
+            padding-bottom: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="email"], input[type="date"], input[type="password"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .readonly {
+            background: #eee;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #35424a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #e8491d;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <div id="branding">
+            <img src="/images/logo.png" alt="Course Compass Logo" style="width: 50px; height: 50px;">
+            <h1>Course Compass</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/welcome">Home</a></li>
+                <li><a href="/account">Account</a></li>
+                <li><a href="/profile">Course Catalogue</a></li>
+                <li><a href="/mycourses">My Courses</a></li>
+                <li><a href="/plan">Plan</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <h2>Account</h2>
+    <form id="accountForm">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" class="readonly" readonly>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="readonly" readonly>
+
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email">
+
+        <button type="button" onclick="saveAccount()">Save</button>
+    </form>
+    <div id="message" class="message" style="display: none;"></div>
+</div>
+
+<script>
+    // Load user account data when the page loads
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('/account/data')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('username').value = data.username;
+                document.getElementById('password').value = '*'.repeat(data.password.length);
+                document.getElementById('name').value = data.name || '';
+                document.getElementById('dob').value = data.dob || '';
+                document.getElementById('email').value = data.email || '';
+            })
+            .catch(error => console.error('Error fetching account data:', error));
+    });
+
+    // Save account data
+    function saveAccount() {
+        const formData = {
+            name: document.getElementById('name').value,
+            dob: document.getElementById('dob').value,
+            email: document.getElementById('email').value
+        };
+
+        fetch('/account/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                const messageDiv = document.getElementById('message');
+                if (data.success) {
+                    messageDiv.className = 'message success';
+                    messageDiv.textContent = 'Account updated successfully!';
+                } else {
+                    messageDiv.className = 'message error';
+                    messageDiv.textContent = 'Error updating account.';
+                }
+                messageDiv.style.display = 'block';
+            })
+            .catch(error => console.error('Error updating account:', error));
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Course Compass</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        header {
+            background: #35424a;
+            color: #ffffff;
+            padding: 20px 0;
+            border-bottom: #e8491d 3px solid;
+        }
+
+        header a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 14px;
+            padding: 10px 20px;
+        }
+
+        header ul {
+            padding: 0;
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        header ul li {
+            display: inline;
+        }
+
+        header #branding {
+            float: left;
+            display: flex;
+            align-items: center;
+        }
+
+        header #branding h1 {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 24px;
+        }
+
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+
+        #showcase {
+            min-height: 400px;
+            background: url('/images/banner.jpg') no-repeat center center/cover;
+            color: #ffffff;
+            text-align: center;
+            padding-top: 150px;
+            margin-bottom: 20px;
+        }
+
+        #showcase h1 {
+            font-size: 55px;
+            margin-top: 0;
+        }
+
+        #showcase p {
+            font-size: 20px;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px 0;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            color: #35424a;
+            border-bottom: 2px solid #e8491d;
+            padding-bottom: 10px;
+        }
+
+        .steps {
+            list-style: none;
+            padding: 0;
+        }
+
+        .steps li {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f4f4f4;
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+        }
+
+        .benefits {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .benefits li {
+            flex: 1 1 calc(33.333% - 20px);
+            margin: 10px 0;
+            padding: 20px;
+            background: #e7f3fe;
+            border: 1px solid #d0e1f9;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #35424a;
+            color: #ffffff;
+        }
+
+        .highlight {
+            background: #e8491d;
+            color: #ffffff;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <div id="branding">
+            <img src="/images/logo.png" alt="Course Compass Logo" style="width: 50px; height: 50px;">
+            <h1>Course Compass</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/welcome">Home</a></li>
+                <li><a href="/account">Account</a></li>
+                <li><a href="/profile">Course Catalogue</a></li>
+                <li><a href="/mycourses">My Courses</a></li>
+                <li><a href="/plan">Plan</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section id="showcase">
+    <div class="container">
+        <h1>Welcome to Course Compass</h1>
+        <p>Your ultimate tool for managing and planning your courses efficiently.</p>
+    </div>
+</section>
+
+<div class="container">
+    <section>
+        <h2>About Course Compass</h2>
+        <p>Course Compass is designed to help students manage their courses and academic plans effectively. With our user-friendly interface, you can easily add and organize your courses, create a detailed semester-wise plan, and track your academic progress.</p>
+        <ul class="benefits">
+            <li><strong>Easy Course Management:</strong> Add, view, and delete courses with just a few clicks.</li>
+            <li><strong>Comprehensive Planning:</strong> Create a detailed timetable for each semester and track your progress.</li>
+            <li><strong>User-Friendly Interface:</strong> Navigate through the site with ease and efficiency.</li>
+            <li><strong>Customizable Plans:</strong> Add more years to your plan if your course duration extends beyond four years.</li>
+            <li><strong>Secure and Reliable:</strong> Your data is safe with us, and our system is designed for optimal performance.</li>
+            <li><strong>Progress Tracking:</strong> Keep track of your completed courses and upcoming ones to ensure you meet all your academic requirements.</li>
+            <li><strong>Course Recommendations:</strong> Get suggestions for courses based on your academic interests and progress.</li>
+            <li><strong>Collaboration:</strong> Share your course plan with advisors or peers for better planning and advice.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Getting Started</h2>
+        <ul class="steps">
+            <li><strong>Step 1:</strong> Visit the <a href="/account" class="highlight">Profile</a> page to view and manage your profile information. Ensure your details are up-to-date.</li>
+            <li><strong>Step 2:</strong> Navigate to the <a href="/mycourses" class="highlight">My Courses</a> page to add your courses. You can also view and delete courses here.</li>
+            <li><strong>Step 3:</strong> Go to the <a href="/plan" class="highlight">Plan</a> page to create your academic timetable. Add courses to specific semesters and customize your plan according to your needs.</li>
+            <li><strong>Step 4:</strong> Regularly check and update your course plan to ensure you are on track with your academic goals. Utilize the plus buttons to add courses and keep your plan updated.</li>
+            <li><strong>Step 5:</strong> Use the <a href="/recommendations" class="highlight">Recommendations</a> page to get personalized course suggestions based on your interests and progress.</li>
+            <li><strong>Step 6:</strong> Share your course plan with your advisor or peers for collaborative planning and feedback.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Features</h2>
+        <p>Course Compass offers a range of features to make your academic planning seamless and efficient:</p>
+        <ul class="benefits">
+            <li><strong>Course Overview:</strong> Get a comprehensive view of all your courses in one place.</li>
+            <li><strong>Detailed Timetable:</strong> Plan your semesters with our detailed timetable feature. Add courses to specific semesters and track your progress.</li>
+            <li><strong>Customizable Plans:</strong> Extend your plan beyond four years by adding more columns for additional years.</li>
+            <li><strong>Interactive Interface:</strong> Use the plus buttons to add courses to your timetable directly from the myCourses table.</li>
+            <li><strong>Data Security:</strong> Your data is secure with us, and we ensure the highest standards of privacy and security.</li>
+            <li><strong>Collaboration:</strong> Share your course plan with advisors or peers to get feedback and advice on your academic journey.</li>
+            <li><strong>Notifications:</strong> Receive reminders and notifications for important dates and deadlines.</li>
+            <li><strong>Analytics:</strong> Track your academic progress with detailed analytics and reports.</li>
+        </ul>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2024 Course Compass. All rights reserved.</p>
+</footer>
+</body>
+</html>
