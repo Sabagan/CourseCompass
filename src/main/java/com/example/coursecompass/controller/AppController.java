@@ -154,24 +154,34 @@ public class AppController {
                             @RequestParam("courseDescription") String courseDescription,
                             HttpSession session) {
         String username = (String) session.getAttribute("loggedInUser");
-        User user = userService.findUserByUsername(username);
-        Long userId = user.getId();
+        User loggedInUser = userService.findUserByUsername(username);
+        Long userId = loggedInUser.getId();
 
-        // Create new Course object
-        Mycourse newCourse = new Mycourse();
-        newCourse.setUserId(userId);
-        newCourse.setCourseCode(courseCode);
-        newCourse.setCourseName(courseName);
-        newCourse.setCourseDescription(courseDescription);
-        newCourse.setCourseProgram(courseProgram);
+        if (!mycourseService.exists(userId, courseCode)) {
+            // Create new Course object
+            Mycourse newCourse = new Mycourse();
+            newCourse.setUserId(userId);
+            newCourse.setCourseCode(courseCode);
+            newCourse.setCourseName(courseName);
+            newCourse.setCourseDescription(courseDescription);
+            newCourse.setCourseProgram(courseProgram);
 
-        // Save the new course
-        mycourseService.save(newCourse);
-
+            // Save the new course
+            mycourseService.save(newCourse);
+        }
         // Redirect back to profile page after adding course
         return "redirect:/profile";
     }
 
+    @PostMapping("/deleteCourse")
+    public String deleteCourse(@RequestParam("courseCode") String courseCode, HttpSession session) {
+        String username = (String) session.getAttribute("loggedInUser");
+        User user = userService.findUserByUsername(username);
+        Long userId = user.getId();
+
+        mycourseService.delete(userId, courseCode);
+        return "redirect:/mycourses";
+    }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {

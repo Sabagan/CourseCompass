@@ -14,9 +14,7 @@ public class MycourseService {
     private MycourseDao mycourseDao;
 
     public void save(Mycourse mycourse) {
-        if (!mycourseDao.exists(mycourse.getCourseCode())) {
-            mycourseDao.save(mycourse);
-        }
+        mycourseDao.save(mycourse);
     }
 
     public List<Mycourse> findAll() {
@@ -27,7 +25,11 @@ public class MycourseService {
         return mycourseDao.findById(id);
     }
 
-    public void delete(Long id) {
-        mycourseDao.delete(id);
+    public void delete(Long id, String courseCode) {
+        mycourseDao.delete(id, courseCode);
+    }
+
+    public boolean exists(Long id, String courseCode) {
+        return mycourseDao.exists(id, courseCode);
     }
 }

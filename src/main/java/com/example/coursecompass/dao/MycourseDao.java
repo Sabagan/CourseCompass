@@ -14,15 +14,13 @@ public class MycourseDao {
     private JdbcTemplate jdbcTemplate;
 
     public void save(Mycourse mycourse) {
-        String sql = "INSERT INTO mycourses (course_program, course_code, course_name, course_description) " +
-                "VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, mycourse.getCourseProgram(), mycourse.getCourseCode(),
-                mycourse.getCourseName(), mycourse.getCourseDescription());
+        String sql = "INSERT INTO mycourses (user_id, course_program, course_code, course_name, course_description) VALUES (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, mycourse.getUserId(), mycourse.getCourseProgram(), mycourse.getCourseCode(), mycourse.getCourseName(), mycourse.getCourseDescription());
     }
 
-    public void delete(Long id) {
-        String sql = "DELETE FROM mycourses WHERE id = ?";
-        jdbcTemplate.update(sql, id);
+    public void delete(Long id, String courseCode) {
+        String sql = "DELETE FROM mycourses WHERE user_id = ? AND course_code = ?";
+        jdbcTemplate.update(sql, id, courseCode);
     }
 
     public Mycourse findById(Long id) {
@@ -35,9 +33,9 @@ public class MycourseDao {
         return jdbcTemplate.query(sql, new MycourseRowMapper());
     }
 
-    public boolean exists(String courseCode) {
-        String sql = "SELECT COUNT(*) FROM mycourses WHERE course_code = ?";
-        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, courseCode);
+    public boolean exists(Long userId, String courseCode) {
+        String sql = "SELECT COUNT(*) FROM mycourses WHERE user_id = ? AND course_code = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId, courseCode}, Integer.class);
         return count != null && count > 0;
     }
 }
