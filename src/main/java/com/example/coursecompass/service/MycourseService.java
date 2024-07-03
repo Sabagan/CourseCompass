@@ -25,6 +25,14 @@ public class MycourseService {
         return mycourseDao.findById(id);
     }
 
+    public List<String> getAllCourseNames() {
+        return mycourseDao.getAllCourseNames();
+    }
+
+    public List<Mycourse> findByUserId(Long userId) {
+        return mycourseDao.findByUserId(userId);
+    }
+
     public void delete(Long id, String courseCode) {
         mycourseDao.delete(id, courseCode);
     }
