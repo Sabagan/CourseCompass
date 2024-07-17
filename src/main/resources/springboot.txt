@@ -1,0 +1,123 @@
+SPRING BOOT APPLICATION STRUCTURE
+
+1. Config Layer:
+    - Holds configuration classes that define beans and other configuration
+      settings for the application
+    - Configuring data sources, application properties, security settings, or
+      any other custom configurations needed by the application
+
+2. Controller Layer:
+    - Handles HTTP requests and maps them to the appropriate service methods
+    - Define endpoints that users or other services can interact with.
+    - Controllers are annotated with `@RestController` or `@Controller`
+
+3. DAO (Data Access Object) Layer:
+    - Interacts with the database and performs CRUD operations
+    - Provides an abstraction over the data source and encapsulates the logic
+      for accessing the database. Typically, interfaces are annotated with the
+      `@Repository`
+
+4. Model Layer:
+    - Represents the application's data structure
+    - Define the entities or data models used throughout the application. These
+      are typically annotated with JPA annotations like `@Entity`
+
+5. RowMapper:
+    - Maps rows of ResultSet to Java objects
+    - Used in conjunction with JdbcTemplate to convert each row of a ResultSet
+      into an instance of a specified class
+
+6. Service Layer:
+    - Contains the business logic of the application
+    - Acts as an intermediary between the controller and DAO layers
+    - It handles the main business logic and transactions
+    - Services are usually annotated with `@Service`
+
+______________________________________________________________________________________________
+
+ANNOTATIONS
+
+@Autowired
+    - Field Injection: Directly injects the dependency into the field. It’s the simplest
+      form but makes the field non-final and can be harder to test.
+    - Constructor Injection: Injects the dependency via the constructor. It allows the
+      fields to be final and is generally preferred for mandatory dependencies.
+    - Setter Injection: Injects the dependency via a setter method. It's useful for
+      optional dependencies and allows changing the dependency after the object is created.
+
+________________________________________________________________________________________________
+
+COMMON HTTP METHOD ANNOTATIONS
+
+@GetMapping
+    - Maps HTTP GET requests to a specific handler method
+    - Retrieves information from the server
+    - Examples: Get all users, Get a user by ID
+
+@PostMapping
+    - Maps HTTP POST requests to a specific handler method
+    - Create a new resource on the server
+    - Examples: Create a new user, submit a new comment
+
+@PutMapping
+    - Maps HTTP PUT requests to a specific handler method
+    - Update an existing resource completely on the server
+    - Examples: Update a user profile, replace a nook's information
+
+@DeleteMapping
+    - Maps HTTP DELETE requests to a specific handler method
+    - Delete a resource from the server
+    - Examples: Delete a user, remove an item from a cart
+
+@PatchMapping
+    - Maps HTTP PATCH requests to a specific handler method
+    - Partially update an existing resource on the server
+    - Examples: Partially update user information, update the status of an order
+
+_______________________________________________________________________________________________
+
+COMMONLY USED PARAMETERS
+
+@PathVariable
+    - Binds a method parameter to a URL template variable
+    - Used to extract values from the URL path itself
+
+    @GetMapping("/users/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+
+@RequestParam
+    - Binds a method parameter to a web request parameter
+    - Used to extract values from the query string or form data
+
+    @GetMapping("/users/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+
+@RequestBody
+    - Binds the body of the web request to a method parameter
+    -
+
+    @PostMapping("/users")
+    public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
+    }
+
+@RequestHeader
+    - Binds a method parameter to a web request header
+
+    @GetMapping("/users")
+    public List<User> getUsers(@RequestHeader("X-Auth-Token") String token) {
+        // Validate token and get users
+        return userService.getAllUsers();
+    }
+
+@CookieValue
+    - Binds a method parameter to a cookie value
+
+    @GetMapping("/preferences")
+    public String getPreferences(@CookieValue("userPref") String userPref) {
+        return userPref;
+    }

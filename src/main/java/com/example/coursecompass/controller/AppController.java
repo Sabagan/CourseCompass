@@ -35,7 +35,7 @@ public class AppController {
     }
 
     @GetMapping("/plan")
-    public String showPlan() {
+    public String showPlan(Model model, HttpSession session) {
         return "plan";
     }
 

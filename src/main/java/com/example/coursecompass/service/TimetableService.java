@@ -14,8 +14,8 @@ public class TimetableService {
         this.timetableDao = timetableDao;
     }
 
-    public void save(Timetable timetable) {
-        timetableDao.save(timetable);
+    public void addCourseToTimetable(Timetable timetable) {
+        timetableDao.addCourseToTimetable(timetable);
     }
 
     public void removeCourseFromTimetable(Long userId, String courseName, Integer year, String semester) {

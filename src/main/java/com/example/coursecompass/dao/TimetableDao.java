@@ -3,11 +3,8 @@ package com.example.coursecompass.dao;
 import com.example.coursecompass.model.Timetable;
 import com.example.coursecompass.rowmapper.TimetableRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -18,7 +15,7 @@ public class TimetableDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void save(Timetable timetable) {
+    public void addCourseToTimetable(Timetable timetable) {
         String sql = "INSERT INTO timetable (user_id, year, semester, course_name) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, timetable.getUserId(), timetable.getYear(), timetable.getSemester(), timetable.getCourseName());
     }
