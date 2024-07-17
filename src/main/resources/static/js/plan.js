@@ -96,6 +96,42 @@ document.addEventListener('DOMContentLoaded', () => {
         const courseElement = document.createElement('div');
         courseElement.className = 'course';
         courseElement.textContent = course.courseName;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Remove';
+        removeBtn.className = 'remove-course-btn';
+        removeBtn.style.marginLeft = '10px';
+        removeBtn.style.backgroundColor = 'red';
+        removeBtn.style.borderColor = 'red';
+        removeBtn.style.marginTop = '12px';
+        removeBtn.style.marginBottom = '12px';
+
+        removeBtn.addEventListener('click', () => removeCourseFromPlan(year, semester, course.courseName));
+
+        courseElement.appendChild(removeBtn);
         courseContainer.appendChild(courseElement);
+
+        // Add border-bottom to previous course divs
+        const courses = courseContainer.querySelectorAll('.course');
+        courses.forEach((course, index) => {
+            course.style.borderBottom = index === courses.length - 1 ? 'none' : '1px solid #ccc';
+            course.style.marginTop = '12px';
+            course.style.marginBottom = '12px';
+        });
+    }
+
+    async function removeCourseFromPlan(year, semester, courseName) {
+        try {
+            const response = await fetch(`/api/timetable/remove?courseName=${encodeURIComponent(courseName)}&year=${year}&semester=${encodeURIComponent(semester)}`, {
+                method: 'DELETE'
+            });
+            if (response.ok) {
+                window.location.reload(); // Reload the page to reflect changes
+            } else {
+                console.error('Failed to remove course');
+            }
+        } catch (error) {
+            console.error('Error removing course:', error);
+        }
     }
 });

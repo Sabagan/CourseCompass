@@ -61,21 +61,14 @@ public class TimetableController {
     }
 
     @DeleteMapping("/remove")
-    @ResponseBody
-    public String removeCourseFromTimetable(@RequestParam("courseName") String courseName,
-                                            @RequestParam("year") Integer year,
-                                            @RequestParam("semester") String semester,
+    public void removeCourseFromTimetable(@RequestParam String courseName,
+                                            @RequestParam int year,
+                                            @RequestParam String semester,
                                             HttpSession session) {
-        try {
-            String username = (String) session.getAttribute("loggedInUser");
-            User loggedInUser = userService.findUserByUsername(username);
-            Long userId = loggedInUser.getId();
+        String username = (String) session.getAttribute("loggedInUser");
+        User loggedInUser = userService.findUserByUsername(username);
+        Long userId = loggedInUser.getId();
 
-            timetableService.removeCourseFromTimetable(userId, courseName, year, semester);
-
-            return "Course removed successfully";
-        } catch (Exception e) {
-            return "Failed to remove course: " + e.getMessage();
-        }
+        timetableService.removeCourseFromTimetable(userId, courseName, year, semester);
     }
 }
