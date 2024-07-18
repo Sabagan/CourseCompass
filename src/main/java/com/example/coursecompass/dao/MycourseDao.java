@@ -1,5 +1,5 @@
 package com.example.coursecompass.dao;
-import com.example.coursecompass.rowmapper.MycourseRowMapper;
+
 import com.example.coursecompass.model.Mycourse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,10 +23,10 @@ public class MycourseDao {
         jdbcTemplate.update(sql, id, courseCode);
     }
 
-    public Mycourse findById(Long id) {
-        String sql = "SELECT * FROM mycourses WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{id}, new MycourseRowMapper());
-    }
+//    public Mycourse findById(Long id) {
+//        String sql = "SELECT * FROM mycourses WHERE id = ?";
+//        return jdbcTemplate.queryForObject(sql, new Object[]{id}, new MycourseRowMapper());
+//    }
 
     public List<Mycourse> findByUserId(Long userId) {
         String sql = "SELECT * FROM mycourses WHERE user_id = ?";
@@ -46,10 +46,10 @@ public class MycourseDao {
         return jdbcTemplate.queryForList(sql, String.class);
     }
 
-    public List<Mycourse> findAll() {
-        String sql = "SELECT * FROM mycourses";
-        return jdbcTemplate.query(sql, new MycourseRowMapper());
-    }
+//    public List<Mycourse> findAll() {
+//        String sql = "SELECT * FROM mycourses";
+//        return jdbcTemplate.query(sql, new MycourseRowMapper());
+//    }
 
     public boolean exists(Long userId, String courseCode) {
         String sql = "SELECT COUNT(*) FROM mycourses WHERE user_id = ? AND course_code = ?";

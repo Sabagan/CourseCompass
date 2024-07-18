@@ -1,9 +1,7 @@
 package com.example.coursecompass.dao;
 
 import com.example.coursecompass.model.Course;
-import com.example.coursecompass.model.Mycourse;
 import com.example.coursecompass.rowmapper.CourseRowMapper;
-import com.example.coursecompass.rowmapper.MycourseRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

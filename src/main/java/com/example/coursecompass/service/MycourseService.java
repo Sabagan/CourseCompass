@@ -17,13 +17,13 @@ public class MycourseService {
         mycourseDao.save(mycourse);
     }
 
-    public List<Mycourse> findAll() {
-        return mycourseDao.findAll();
-    }
+//    public List<Mycourse> findAll() {
+//        return mycourseDao.findAll();
+//    }
 
-    public Mycourse findById(Long id) {
-        return mycourseDao.findById(id);
-    }
+//    public Mycourse findById(Long id) {
+//        return mycourseDao.findById(id);
+//    }
 
     public List<String> getAllCourseNames() {
         return mycourseDao.getAllCourseNames();

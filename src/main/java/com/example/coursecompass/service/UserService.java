@@ -1,7 +1,6 @@
 package com.example.coursecompass.service;
 
 import com.example.coursecompass.dao.UserDao;
-import com.example.coursecompass.model.Course;
 import com.example.coursecompass.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +22,9 @@ public class UserService {
         return userDao.findByUsername(username);
     }
 
-    @Transactional
-    public void addCourseToUser(User user, Course course) {
-        user.addCourse(course);
-        userDao.save(user);
-    }
+//    @Transactional
+//    public void addCourseToUser(User user, Course course) {
+//        user.addCourse(course);
+//        userDao.save(user);
+//    }
 }

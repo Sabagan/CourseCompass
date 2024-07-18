@@ -1,15 +1,10 @@
 package com.example.coursecompass.dao;
 
-import com.example.coursecompass.model.Course;
 import com.example.coursecompass.model.User;
 import com.example.coursecompass.rowmapper.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Repository
 public class UserDao {
@@ -32,9 +27,9 @@ public class UserDao {
         }
     }
 
-    public List<User> findAll() {
-        String sql = "SELECT * FROM user";
-        return jdbcTemplate.query(sql, new UserRowMapper());
-    }
+//    public List<User> findAll() {
+//        String sql = "SELECT * FROM user";
+//        return jdbcTemplate.query(sql, new UserRowMapper());
+//    }
 
 }
