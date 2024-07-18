@@ -5,7 +5,7 @@ body, html {
 }
 
 .navbar {
-    background-color: #400008;
+    background-color: #222761;
     overflow: hidden;
 }
 
@@ -59,13 +59,15 @@ body, html {
 
 .hero h1 {
     font-size: 3em;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    color: white;
 }
 
 .hero-image {
-    background-image: url('../images/abstractBlue.jpg');
+    background-image: url('../images/remoteWork.gif');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     position: absolute;
     top: 0;
     left: 0;

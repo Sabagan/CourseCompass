@@ -98,11 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
         courseElement.textContent = course.courseName;
 
         const removeBtn = document.createElement('button');
-        removeBtn.textContent = 'Remove';
+        removeBtn.textContent = '-';
         removeBtn.className = 'remove-course-btn';
         removeBtn.style.marginLeft = '10px';
         removeBtn.style.backgroundColor = 'red';
-        removeBtn.style.borderColor = 'red';
+        removeBtn.style.color = 'white';
+        removeBtn.style.border = 'none';
         removeBtn.style.marginTop = '12px';
         removeBtn.style.marginBottom = '12px';
 
