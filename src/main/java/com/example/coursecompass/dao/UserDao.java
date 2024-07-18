@@ -30,8 +30,6 @@ public class UserDao {
             String sql = "UPDATE user SET password = ?, name = ?, dob = ?, email = ? WHERE username = ?";
             jdbcTemplate.update(sql, user.getPassword(), user.getName(), user.getDob(), user.getEmail(), user.getUsername());
         }
-
-        saveUserCourses(user);
     }
 
     public List<User> findAll() {
@@ -39,13 +37,4 @@ public class UserDao {
         return jdbcTemplate.query(sql, new UserRowMapper());
     }
 
-    private void saveUserCourses(User user) {
-        String deleteSql = "DELETE FROM user_courses WHERE user_id = ?";
-        jdbcTemplate.update(deleteSql, user.getId());
-
-        String insertSql = "INSERT INTO user_courses (user_id, course_id) VALUES (?, ?)";
-        for (Course course : user.getCourses()) {
-            jdbcTemplate.update(insertSql, user.getId(), course.getId());
-        }
-    }
 }

@@ -63,7 +63,7 @@ body, html {
 }
 
 .hero-image {
-    background-image: url("../images/abstractBlue.jpg");
+    background-image: url('../images/abstractBlue.jpg');
     background-size: cover;
     background-position: center;
     position: absolute;
