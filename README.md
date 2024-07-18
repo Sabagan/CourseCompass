@@ -30,6 +30,7 @@ cd course-compass
 Ensure XAMPP is running, specifically the Apache and MySQL services. You can start XAMPP using the XAMPP Control Panel. Open phpMyAdmin and create a database course_compass. Then create the necessary tables:
 
 # User Table
+```
 Name      | Type          | Null | Default
 id        | bigint(20)    | No   | None     -->  Auto_Incremenet
 username  | varchar(255)  | No   | None
@@ -37,6 +38,7 @@ password  | varchar(255)  | No   | None
 dob       | datetime(6)   | No   | None
 email     | varchar(255)  | No   | None 
 name      | varchar(255)  | NO   | None
+```
 
 # Course Table
 Name                | Type          | Null  | Default
