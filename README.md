@@ -15,6 +15,7 @@ Course Compass is a web application that allows users to browse courses, add cou
 - 🛠️ Maven 3.6.3 or higher
 - 🐬 MySQL 8.0 or higher
 - 🔧 XAMPP or any other tool to manage MySQL databases (phpMyAdmin)
+- 📦 Postman if you want to test out the APIs
 
 ## 🚀 Getting Started
 
