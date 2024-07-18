@@ -1,6 +1,5 @@
 package com.example.coursecompass.controller;
 
-import com.example.coursecompass.model.Course;
 import com.example.coursecompass.model.Mycourse;
 import com.example.coursecompass.model.Timetable;
 import com.example.coursecompass.model.User;
@@ -18,11 +17,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/timetable")
 public class TimetableController {
 
-    private final TimetableService timetableService;
+    @Autowired
+    private TimetableService timetableService;
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
-    private final MycourseService mycourseService;
+    @Autowired
+    private MycourseService mycourseService;
 
     public TimetableController(TimetableService timetableService, UserService userService, MycourseService mycourseService) {
         this.timetableService = timetableService;

@@ -25,6 +25,10 @@ public class TimetableDao {
         jdbcTemplate.update(sql, userId, courseName, year, semester);
     }
 
+    public void removeCourseFromTimetable(Long userId, String courseName) {
+        String sql = "DELETE FROM timetable WHERE user_id = ? AND course_name = ?";
+        jdbcTemplate.update(sql, userId, courseName);
+    }
 
     public List<Timetable> findByUserId(Long userId) {
         String sql = "SELECT * FROM timetable WHERE user_id = ?";

@@ -5,13 +5,13 @@ import com.example.coursecompass.model.Mycourse;
 import com.example.coursecompass.model.User;
 import com.example.coursecompass.service.CourseService;
 import com.example.coursecompass.service.MycourseService;
+import com.example.coursecompass.service.TimetableService;
 import com.example.coursecompass.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +28,9 @@ public class AppController {
 
     @Autowired
     private MycourseService mycourseService;
+
+    @Autowired
+    private TimetableService timetableService;
 
     @GetMapping("/")
     public String home() {
@@ -92,13 +95,13 @@ public class AppController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam String username, @RequestParam String password, RedirectAttributes redirectAttributes) {
+    public String register(@RequestParam String username, @RequestParam String password) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         userService.saveUser(user);
 
-        redirectAttributes.addFlashAttribute("message", "User registered successfully");
+        //redirectAttributes.addFlashAttribute("message", "User registered successfully");
         return "redirect:/login";
     }
 
@@ -173,13 +176,16 @@ public class AppController {
         return "redirect:/profile";
     }
 
+    // Switched this from post to delete
     @PostMapping("/deleteCourse")
-    public String deleteCourse(@RequestParam("courseCode") String courseCode, HttpSession session) {
+    public String deleteCourse(@RequestParam("courseCode") String courseCode, @RequestParam("courseName") String courseName, HttpSession session) {
         String username = (String) session.getAttribute("loggedInUser");
         User user = userService.findUserByUsername(username);
         Long userId = user.getId();
 
         mycourseService.delete(userId, courseCode);
+        timetableService.removeCourseFromTimetable(userId, courseName); // So delete course doesn't remain in the timetable
+
         return "redirect:/mycourses";
     }
 

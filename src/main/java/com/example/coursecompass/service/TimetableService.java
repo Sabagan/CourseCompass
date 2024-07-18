@@ -19,8 +19,11 @@ public class TimetableService {
     }
 
     public void removeCourseFromTimetable(Long userId, String courseName, Integer year, String semester) {
-        // Implement logic to remove course from the timetable based on courseName, year, and semester
         timetableDao.removeCourseFromTimetable(userId, courseName, year, semester);
+    }
+
+    public void removeCourseFromTimetable(Long userId, String courseName) {
+        timetableDao.removeCourseFromTimetable(userId, courseName);
     }
 
     public List<Timetable> findByUserId(Long userId) {
