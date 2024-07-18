@@ -145,7 +145,9 @@ public class AppController {
         if (username == null)
             return "redirect:/login";
 
-        List<Mycourse> courses = mycourseService.findAll();
+        User loggedInUser = userService.findUserByUsername(username);
+        List<Mycourse> courses = mycourseService.findByUserId(loggedInUser.getId());
+
         model.addAttribute("courses", courses);
         return "mycourses";
     }
