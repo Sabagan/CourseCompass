@@ -8,6 +8,7 @@ import com.example.coursecompass.service.MycourseService;
 import com.example.coursecompass.service.TimetableService;
 import com.example.coursecompass.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,7 @@ public class AppController {
     }
 
     @GetMapping("/plan")
-    public String showPlan(Model model, HttpSession session) {
+    public String showPlan() {
         return "plan";
     }
 
@@ -139,6 +140,12 @@ public class AppController {
         return "profile";
     }
 
+//    @GetMapping("/api/courses")
+//    public List<String> getAllCourseNames() {
+//        List<String> courseNames = mycourseService.getAllCourseNames();
+//        return courseNames;
+//    }
+
     @GetMapping("/mycourses")
     public String showMyCourses(Model model, HttpSession session) {
         String username = (String) session.getAttribute("loggedInUser");
@@ -174,11 +181,10 @@ public class AppController {
             // Save the new course
             mycourseService.save(newCourse);
         }
-        // Redirect back to profile page after adding course
+
         return "redirect:/profile";
     }
 
-    // Switched this from post to delete
     @PostMapping("/deleteCourse")
     public String deleteCourse(@RequestParam("courseCode") String courseCode, @RequestParam("courseName") String courseName, HttpSession session) {
         String username = (String) session.getAttribute("loggedInUser");
