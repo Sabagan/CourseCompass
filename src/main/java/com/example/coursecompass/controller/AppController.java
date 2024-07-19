@@ -8,15 +8,12 @@ import com.example.coursecompass.service.MycourseService;
 import com.example.coursecompass.service.TimetableService;
 import com.example.coursecompass.service.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class AppController {
@@ -53,38 +50,6 @@ public class AppController {
         return "account";
     }
 
-    @GetMapping("/account/data")
-    @ResponseBody
-    public User getUserAccount(HttpSession session) {
-        String username = (String) session.getAttribute("loggedInUser");
-        return userService.findUserByUsername(username);
-    }
-
-    @PostMapping("/account/update")
-    @ResponseBody
-    public Map<String, Object> updateAccount(@RequestBody User updatedUser, HttpSession session) {
-        String username = (String) session.getAttribute("loggedInUser");
-        User currentUser = userService.findUserByUsername(username);
-
-        Map<String, Object> response = new HashMap<>();
-
-        if (currentUser != null) {
-            // Update fields
-            currentUser.setName(updatedUser.getName());
-            currentUser.setDob(updatedUser.getDob());
-            currentUser.setEmail(updatedUser.getEmail());
-
-            userService.saveUser(currentUser);
-
-            // Return success response
-            response.put("success", true);
-        } else {
-            // Return error response
-            response.put("success", false);
-        }
-        return response;
-    }
-
     @GetMapping("/recommendations")
     public String showRecommendations() {
         return "recommendations";
@@ -102,7 +67,6 @@ public class AppController {
         user.setPassword(password);
         userService.saveUser(user);
 
-        //redirectAttributes.addFlashAttribute("message", "User registered successfully");
         return "redirect:/login";
     }
 
@@ -139,12 +103,6 @@ public class AppController {
         model.addAttribute("courses", courseService.getCourses());
         return "profile";
     }
-
-//    @GetMapping("/api/courses")
-//    public List<String> getAllCourseNames() {
-//        List<String> courseNames = mycourseService.getAllCourseNames();
-//        return courseNames;
-//    }
 
     @GetMapping("/mycourses")
     public String showMyCourses(Model model, HttpSession session) {

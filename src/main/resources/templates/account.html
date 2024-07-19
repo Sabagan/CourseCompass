@@ -119,7 +119,7 @@
 <script>
     // Load user account data when the page loads
     document.addEventListener("DOMContentLoaded", function() {
-        fetch('/account/data')
+        fetch('api/account/data')
             .then(response => response.json())
             .then(data => {
                 document.getElementById('username').value = data.username;
@@ -139,7 +139,7 @@
             email: document.getElementById('email').value
         };
 
-        fetch('/account/update', {
+        fetch('/api/account/update', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
