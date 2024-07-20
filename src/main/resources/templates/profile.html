@@ -59,7 +59,7 @@
             <td th:text="${course.courseName}"></td>
             <td th:text="${course.courseDescription}"></td>
             <td>
-                <form th:action="@{/addCourse}" method="post">
+                <form th:action="@{/addCourse}" method="post" onsubmit="saveSearchHistory()">
                     <input type="hidden" name="courseProgram" th:value="${course.courseProgram}" />
                     <input type="hidden" name="courseCode" th:value="${course.courseCode}" />
                     <input type="hidden" name="courseName" th:value="${course.courseName}" />
@@ -73,6 +73,28 @@
 </div>
 
 <script>
+    function saveSearchHistory() {
+        const criteria = document.getElementById('searchCriteria').value;
+        const type = document.getElementById('searchType').value;
+        const input = document.getElementById('search').value;
+
+        localStorage.setItem('searchCriteria', criteria);
+        localStorage.setItem('searchType', type);
+        localStorage.setItem('searchInput', input);
+    }
+
+    function loadSearchHistory() {
+        const criteria = localStorage.getItem('searchCriteria');
+        const type = localStorage.getItem('searchType');
+        const input = localStorage.getItem('searchInput');
+
+        if (criteria) document.getElementById('searchCriteria').value = criteria;
+        if (type) document.getElementById('searchType').value = type;
+        if (input) document.getElementById('search').value = input;
+
+        if (input) filterCourses();
+    }
+
     function filterCourses() {
         let input = document.getElementById('search').value.toLowerCase();
         let criteria = document.getElementById('searchCriteria').value;
@@ -105,7 +127,10 @@
             }
         }
     }
+
+    document.addEventListener('DOMContentLoaded', loadSearchHistory);
 </script>
+
 <div class="footer">
     &copy; 2024 CourseCompass
 </div>
