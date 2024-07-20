@@ -36,22 +36,34 @@ public class AppController {
     }
 
     @GetMapping("/plan")
-    public String showPlan() {
+    public String showPlan(HttpSession session) {
+        String username = (String) session.getAttribute("loggedInUser");
+        if (username == null)
+            return "redirect:/login";
         return "plan";
     }
 
     @GetMapping("/welcome")
-    public String showWelcome() {
+    public String showWelcome(HttpSession session) {
+        String username = (String) session.getAttribute("loggedInUser");
+        if (username == null)
+            return "redirect:/login";
         return "welcome";
     }
 
     @GetMapping("/account")
-    public String showAccount() {
+    public String showAccount(HttpSession session) {
+        String username = (String) session.getAttribute("loggedInUser");
+        if (username == null)
+            return "redirect:/login";
         return "account";
     }
 
     @GetMapping("/recommendations")
-    public String showRecommendations() {
+    public String showRecommendations(HttpSession session) {
+        String username = (String) session.getAttribute("loggedInUser");
+        if (username == null)
+            return "redirect:/login";
         return "recommendations";
     }
 
