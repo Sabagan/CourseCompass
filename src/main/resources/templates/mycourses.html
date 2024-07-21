@@ -6,12 +6,6 @@
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
     <link rel="stylesheet" type="text/css" href="/css/navbar.css">
     <title>My Courses</title>
-    <style>
-        .fade-out {
-            opacity: 0;
-            transition: opacity 0.5s ease-out;
-        }
-    </style>
 </head>
 <body>
 <header>
@@ -78,19 +72,7 @@
             .then(data => {
                 console.log(data);
                 if (data === "Course deleted") {
-                    // Apply fade-out effect
-                    const row = form.closest('tr');
-                    row.classList.add('fade-out');
-                    console.log('Fade Out');
-
-                    // Wait for the transition to end before removing the row
-                    row.addEventListener('transitionend', () => {
-                        row.remove(row);
-                        console.log('Transition');
-                        setTimeout(() => {
-                            location.reload();
-                        }, 0);
-                    });
+                    window.location.reload();
                 }
             })
             .catch(error => {
