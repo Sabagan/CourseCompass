@@ -41,6 +41,7 @@
             <option value="startsWith">Starts With</option>
         </select>
         <input type="text" id="search" placeholder="Search..." onkeyup="filterCourses(); saveState();">
+        <button class="btn" onclick="loadState()">Previous Search</button>
     </div>
     <table id="courseTable">
         <thead>
@@ -52,14 +53,14 @@
             <th>Action</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="courseTableBody">
         <tr th:each="course : ${courses}">
             <td th:text="${course.courseProgram}"></td>
             <td th:text="${course.courseCode}"></td>
             <td th:text="${course.courseName}"></td>
             <td th:text="${course.courseDescription}"></td>
             <td>
-                <form th:action="@{/addCourse}" method="post" onsubmit="prepareForReload()">
+                <form onsubmit="addCourse(event)">
                     <input type="hidden" name="courseProgram" th:value="${course.courseProgram}" />
                     <input type="hidden" name="courseCode" th:value="${course.courseCode}" />
                     <input type="hidden" name="courseName" th:value="${course.courseName}" />
@@ -73,41 +74,51 @@
 </div>
 
 <script>
+    function addCourse(event) {
+        event.preventDefault();  // Prevent the form from submitting the traditional way
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        fetch('/addCourse', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "Course added successfully") {
+                    alert(data);
+                    // Optionally, you can refresh the course list or update the UI here
+                } else {
+                    alert(data);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while adding the course');
+            });
+    }
+
     function saveState() {
         const criteria = document.getElementById('searchCriteria').value;
         const type = document.getElementById('searchType').value;
         const input = document.getElementById('search').value;
-        const scrollPosition = window.scrollY;
 
         localStorage.setItem('searchCriteria', criteria);
         localStorage.setItem('searchType', type);
         localStorage.setItem('searchInput', input);
-        localStorage.setItem('scrollPosition', scrollPosition.toString());
-    }
-
-    function prepareForReload() {
-        saveState();
-        localStorage.setItem('reloadPage', 'true');
     }
 
     function loadState() {
-        const shouldLoadState = localStorage.getItem('reloadPage') === 'true';
+        const criteria = localStorage.getItem('searchCriteria');
+        const type = localStorage.getItem('searchType');
+        const input = localStorage.getItem('searchInput');
 
-        if (shouldLoadState) {
-            const criteria = localStorage.getItem('searchCriteria');
-            const type = localStorage.getItem('searchType');
-            const input = localStorage.getItem('searchInput');
-            const scrollPosition = localStorage.getItem('scrollPosition');
+        if (criteria) document.getElementById('searchCriteria').value = criteria;
+        if (type) document.getElementById('searchType').value = type;
+        if (input) document.getElementById('search').value = input;
 
-            if (criteria) document.getElementById('searchCriteria').value = criteria;
-            if (type) document.getElementById('searchType').value = type;
-            if (input) document.getElementById('search').value = input;
-
-            if (input) filterCourses();
-            if (scrollPosition) window.scrollTo(0, parseInt(scrollPosition, 10));
-
-            localStorage.removeItem('reloadPage');
-        }
+        if (input) filterCourses();
     }
 
     function filterCourses() {
@@ -142,9 +153,6 @@
             }
         }
     }
-
-    document.addEventListener('DOMContentLoaded', loadState);
-    window.addEventListener('scroll', saveState);
 </script>
 
 <div class="footer">

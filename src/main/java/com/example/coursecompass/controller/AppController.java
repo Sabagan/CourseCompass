@@ -8,6 +8,8 @@ import com.example.coursecompass.service.MycourseService;
 import com.example.coursecompass.service.TimetableService;
 import com.example.coursecompass.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -130,11 +132,12 @@ public class AppController {
     }
 
     @PostMapping("/addCourse")
-    public String addCourse(@RequestParam("courseProgram") String courseProgram,
-                            @RequestParam("courseCode") String courseCode,
-                            @RequestParam("courseName") String courseName,
-                            @RequestParam("courseDescription") String courseDescription,
-                            HttpSession session) {
+    @ResponseBody
+    public ResponseEntity<String> addCourse(@RequestParam("courseProgram") String courseProgram,
+                                           @RequestParam("courseCode") String courseCode,
+                                           @RequestParam("courseName") String courseName,
+                                           @RequestParam("courseDescription") String courseDescription,
+                                           HttpSession session) {
         String username = (String) session.getAttribute("loggedInUser");
         User loggedInUser = userService.findUserByUsername(username);
         Long userId = loggedInUser.getId();
@@ -150,9 +153,10 @@ public class AppController {
 
             // Save the new course
             mycourseService.save(newCourse);
+            return ResponseEntity.ok("Course added");
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Course already exists");
         }
-
-        return "redirect:/profile";
     }
 
     @PostMapping("/deleteCourse")
