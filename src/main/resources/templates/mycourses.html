@@ -6,6 +6,12 @@
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
     <link rel="stylesheet" type="text/css" href="/css/navbar.css">
     <title>My Courses</title>
+    <style>
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -38,14 +44,14 @@
             <th>Action</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="courseTableBody">
         <tr th:each="course : ${courses}">
             <td th:text="${course.courseProgram}"></td>
             <td th:text="${course.courseCode}"></td>
             <td th:text="${course.courseName}"></td>
             <td th:text="${course.courseDescription}"></td>
             <td>
-                <form th:action="@{/deleteCourse}" method="post">
+                <form onsubmit="deleteCourse(event)">
                     <input type="hidden" th:name="courseCode" th:value="${course.courseCode}" />
                     <input type="hidden" th:name="courseName" th:value="${course.courseName}" />
                     <button class="btn" type="submit">🗑️</button>
@@ -55,6 +61,44 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function deleteCourse(event) {
+        event.preventDefault();  // Prevent the form from submitting the traditional way
+
+        const form = event.target;
+        const formData = new FormData(form);
+        const courseCode = formData.get('courseCode');
+        const courseName = formData.get('courseName');
+
+        fetch(`/deleteCourse?courseCode=${courseCode}&courseName=${courseName}`, {
+            method: 'DELETE'
+        })
+            .then(response => response.text())  // Expecting text response since the backend sends plain text
+            .then(data => {
+                console.log(data);
+                if (data === "Course deleted") {
+                    // Apply fade-out effect
+                    const row = form.closest('tr');
+                    row.classList.add('fade-out');
+                    console.log('Fade Out');
+
+                    // Wait for the transition to end before removing the row
+                    row.addEventListener('transitionend', () => {
+                        row.remove(row);
+                        console.log('Transition');
+                        setTimeout(() => {
+                            location.reload();
+                        }, 0);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while deleting the course');
+            });
+    }
+</script>
 
 <div class="footer">
     &copy; 2024 CourseCompass

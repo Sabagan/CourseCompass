@@ -159,8 +159,11 @@ public class AppController {
         }
     }
 
-    @PostMapping("/deleteCourse")
-    public String deleteCourse(@RequestParam("courseCode") String courseCode, @RequestParam("courseName") String courseName, HttpSession session) {
+    @DeleteMapping("/deleteCourse")
+    @ResponseBody
+    public ResponseEntity<String> deleteCourse(@RequestParam("courseCode") String courseCode,
+                                               @RequestParam("courseName") String courseName,
+                                               HttpSession session) {
         String username = (String) session.getAttribute("loggedInUser");
         User user = userService.findUserByUsername(username);
         Long userId = user.getId();
@@ -168,7 +171,7 @@ public class AppController {
         mycourseService.delete(userId, courseCode);
         timetableService.removeCourseFromTimetable(userId, courseName); // So delete course doesn't remain in the timetable
 
-        return "redirect:/mycourses";
+        return ResponseEntity.ok("Course deleted");
     }
 
     @GetMapping("/logout")
