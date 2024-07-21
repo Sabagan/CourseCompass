@@ -30,17 +30,17 @@
 <div class="container">
     <h1>Course List</h1>
     <div class="search-container">
-        <select id="searchCriteria">
+        <select id="searchCriteria" onchange="saveState()">
             <option value="program">Program / Faculty</option>
             <option value="code">Course Code</option>
             <option value="name">Course Name</option>
         </select>
-        <select id="searchType">
+        <select id="searchType" onchange="saveState()">
             <option value="contains">Contains</option>
             <option value="equals">Equals</option>
             <option value="startsWith">Starts With</option>
         </select>
-        <input type="text" id="search" placeholder="Search..." onkeyup="filterCourses()">
+        <input type="text" id="search" placeholder="Search..." onkeyup="filterCourses(); saveState();">
     </div>
     <table id="courseTable">
         <thead>
@@ -59,7 +59,7 @@
             <td th:text="${course.courseName}"></td>
             <td th:text="${course.courseDescription}"></td>
             <td>
-                <form th:action="@{/addCourse}" method="post" onsubmit="saveSearchHistory()">
+                <form th:action="@{/addCourse}" method="post" onsubmit="prepareForReload()">
                     <input type="hidden" name="courseProgram" th:value="${course.courseProgram}" />
                     <input type="hidden" name="courseCode" th:value="${course.courseCode}" />
                     <input type="hidden" name="courseName" th:value="${course.courseName}" />
@@ -73,26 +73,41 @@
 </div>
 
 <script>
-    function saveSearchHistory() {
+    function saveState() {
         const criteria = document.getElementById('searchCriteria').value;
         const type = document.getElementById('searchType').value;
         const input = document.getElementById('search').value;
+        const scrollPosition = window.scrollY;
 
         localStorage.setItem('searchCriteria', criteria);
         localStorage.setItem('searchType', type);
         localStorage.setItem('searchInput', input);
+        localStorage.setItem('scrollPosition', scrollPosition.toString());
     }
 
-    function loadSearchHistory() {
-        const criteria = localStorage.getItem('searchCriteria');
-        const type = localStorage.getItem('searchType');
-        const input = localStorage.getItem('searchInput');
+    function prepareForReload() {
+        saveState();
+        localStorage.setItem('reloadPage', 'true');
+    }
 
-        if (criteria) document.getElementById('searchCriteria').value = criteria;
-        if (type) document.getElementById('searchType').value = type;
-        if (input) document.getElementById('search').value = input;
+    function loadState() {
+        const shouldLoadState = localStorage.getItem('reloadPage') === 'true';
 
-        if (input) filterCourses();
+        if (shouldLoadState) {
+            const criteria = localStorage.getItem('searchCriteria');
+            const type = localStorage.getItem('searchType');
+            const input = localStorage.getItem('searchInput');
+            const scrollPosition = localStorage.getItem('scrollPosition');
+
+            if (criteria) document.getElementById('searchCriteria').value = criteria;
+            if (type) document.getElementById('searchType').value = type;
+            if (input) document.getElementById('search').value = input;
+
+            if (input) filterCourses();
+            if (scrollPosition) window.scrollTo(0, parseInt(scrollPosition, 10));
+
+            localStorage.removeItem('reloadPage');
+        }
     }
 
     function filterCourses() {
@@ -128,7 +143,8 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', loadSearchHistory);
+    document.addEventListener('DOMContentLoaded', loadState);
+    window.addEventListener('scroll', saveState);
 </script>
 
 <div class="footer">
