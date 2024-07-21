@@ -80,7 +80,7 @@
         const form = event.target;
         const formData = new FormData(form);
 
-        fetch('/addCourse', {
+        fetch('/api/addCourse', {
             method: 'POST',
             body: formData
         })

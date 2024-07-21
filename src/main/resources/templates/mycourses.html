@@ -64,8 +64,7 @@
         const formData = new FormData(form);
         const courseCode = formData.get('courseCode');
         const courseName = formData.get('courseName');
-
-        fetch(`/deleteCourse?courseCode=${courseCode}&courseName=${courseName}`, {
+        fetch(`/api/deleteCourse?courseCode=${courseCode}&courseName=${courseName}`, {
             method: 'DELETE'
         })
             .then(response => response.text())  // Expecting text response since the backend sends plain text

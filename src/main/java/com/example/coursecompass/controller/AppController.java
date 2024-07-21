@@ -69,6 +69,32 @@ public class AppController {
         return "recommendations";
     }
 
+    @GetMapping("/profile")
+    public String showProfile(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("loggedInUser");
+        if (username == null) {
+            return "redirect:/login";
+        }
+
+        User user = userService.findUserByUsername(username);
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("courses", courseService.getCourses());
+        return "profile";
+    }
+
+    @GetMapping("/mycourses")
+    public String showMyCourses(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("loggedInUser");
+        if (username == null)
+            return "redirect:/login";
+
+        User loggedInUser = userService.findUserByUsername(username);
+        List<Mycourse> courses = mycourseService.findByUserId(loggedInUser.getId());
+
+        model.addAttribute("courses", courses);
+        return "mycourses";
+    }
+
     @GetMapping("/register")
     public String registerForm() {
         return "register";
@@ -103,75 +129,6 @@ public class AppController {
             model.addAttribute("message", "Invalid username or password");
             return "redirect:/login";
         }
-    }
-
-    @GetMapping("/profile")
-    public String showProfile(Model model, HttpSession session) {
-        String username = (String) session.getAttribute("loggedInUser");
-        if (username == null) {
-            return "redirect:/login";
-        }
-
-        User user = userService.findUserByUsername(username);
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("courses", courseService.getCourses());
-        return "profile";
-    }
-
-    @GetMapping("/mycourses")
-    public String showMyCourses(Model model, HttpSession session) {
-        String username = (String) session.getAttribute("loggedInUser");
-        if (username == null)
-            return "redirect:/login";
-
-        User loggedInUser = userService.findUserByUsername(username);
-        List<Mycourse> courses = mycourseService.findByUserId(loggedInUser.getId());
-
-        model.addAttribute("courses", courses);
-        return "mycourses";
-    }
-
-    @PostMapping("/addCourse")
-    @ResponseBody
-    public ResponseEntity<String> addCourse(@RequestParam("courseProgram") String courseProgram,
-                                           @RequestParam("courseCode") String courseCode,
-                                           @RequestParam("courseName") String courseName,
-                                           @RequestParam("courseDescription") String courseDescription,
-                                           HttpSession session) {
-        String username = (String) session.getAttribute("loggedInUser");
-        User loggedInUser = userService.findUserByUsername(username);
-        Long userId = loggedInUser.getId();
-
-        if (!mycourseService.exists(userId, courseCode)) {
-            // Create new Course object
-            Mycourse newCourse = new Mycourse();
-            newCourse.setUserId(userId);
-            newCourse.setCourseCode(courseCode);
-            newCourse.setCourseName(courseName);
-            newCourse.setCourseDescription(courseDescription);
-            newCourse.setCourseProgram(courseProgram);
-
-            // Save the new course
-            mycourseService.save(newCourse);
-            return ResponseEntity.ok("Course added");
-        } else {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Course already exists");
-        }
-    }
-
-    @DeleteMapping("/deleteCourse")
-    @ResponseBody
-    public ResponseEntity<String> deleteCourse(@RequestParam("courseCode") String courseCode,
-                                               @RequestParam("courseName") String courseName,
-                                               HttpSession session) {
-        String username = (String) session.getAttribute("loggedInUser");
-        User user = userService.findUserByUsername(username);
-        Long userId = user.getId();
-
-        mycourseService.delete(userId, courseCode);
-        timetableService.removeCourseFromTimetable(userId, courseName); // So delete course doesn't remain in the timetable
-
-        return ResponseEntity.ok("Course deleted");
     }
 
     @GetMapping("/logout")
