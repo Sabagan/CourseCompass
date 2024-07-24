@@ -127,7 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'DELETE'
             });
             if (response.ok) {
-                window.location.reload(); // Reload the page to reflect changes
+                // Hide the removed course while on the page
+                // The API will take effect once the page reloads (manually by the user, when they visit another page and come back)
+                $(`.course`).filter(function () {
+                    return $(this).text().trim().startsWith(courseName);
+                }).hide();
             } else {
                 console.error('Failed to remove course');
             }
