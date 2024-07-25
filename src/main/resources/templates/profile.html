@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/css/navbar.css">
     <title>User Profile</title>
     <link rel="icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/simplePagination.min.css">
 </head>
 <body>
 <header>
@@ -72,8 +73,11 @@
         </tr>
         </tbody>
     </table>
+    <div id="pagination-container"></div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/jquery.simplePagination.min.js"></script>
 <script>
     function addCourse(event) {
         event.preventDefault();  // Prevent the form from submitting the traditional way
@@ -154,6 +158,28 @@
             }
         }
     }
+
+    $(document).ready(function() {
+        const itemsPerPage = 25;
+        const $tableBody = $('#courseTableBody');
+        const $rows = $tableBody.find('tr');
+        const numItems = $rows.length;
+        const numPages = Math.ceil(numItems / itemsPerPage);
+
+        $('#pagination-container').pagination({
+            items: numItems,
+            itemsOnPage: itemsPerPage,
+            cssStyle: 'light-theme',
+            onPageClick: function(pageNumber) {
+                const start = (pageNumber - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+
+                $rows.hide().slice(start, end).show();
+            }
+        });
+
+        $rows.hide().slice(0, itemsPerPage).show();
+    });
 </script>
 
 <div class="footer">

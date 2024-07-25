@@ -6,6 +6,66 @@
     <title>Home</title>
     <link rel="stylesheet" href="/css/home.css">
     <link rel="icon" href="/images/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Toggle the visibility of sections
+            $('h2').click(function () {
+                $(this).next('.content').slideToggle('slow');
+            });
+
+            // Add fade-in effect for hero section
+            $('.hero').hide().fadeIn(2000);
+
+            // Add hover effect to navbar links
+            $('.nav-links a').hover(
+                function() {
+                    $(this).css('color', '#ff6600');
+                }, function() {
+                    $(this).css('color', '');
+                }
+            );
+
+            // Add hover effect to images
+            $('img').hover(
+                function() {
+                    $(this).fadeTo('fast', 0.8);
+                }, function() {
+                    $(this).fadeTo('fast', 1.0);
+                }
+            );
+
+            // Slideshow functionality
+            let slideIndex = 1;
+            showSlides(slideIndex);
+
+            // Next/previous controls
+            function plusSlides(n) {
+                showSlides(slideIndex += n);
+            }
+
+            // Thumbnail image controls
+            function currentSlide(n) {
+                showSlides(slideIndex = n);
+            }
+
+            function showSlides(n) {
+                let i;
+                let slides = document.getElementsByClassName("mySlides");
+                let dots = document.getElementsByClassName("dot");
+                if (n > slides.length) {slideIndex = 1}
+                if (n < 1) {slideIndex = slides.length}
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                }
+                slides[slideIndex-1].style.display = "block";
+                dots[slideIndex-1].className += " active";
+            }
+        });
+    </script>
 </head>
 <body>
 <nav class="navbar">
@@ -14,8 +74,6 @@
             <img src="/images/logo.png" alt="Course Compass Logo" style="width: 50px; height: 50px;">
         </div>
         <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#service">Service</a></li>
             <li><a href="/register">Register</a></li>
             <li><a href="/login">Login</a></li>
         </ul>
@@ -27,37 +85,154 @@
     </div>
     <div class="hero-image"></div>
 </section>
-<section id="about" class="about">
-    <div class="container">
-        <h2>What We Offer</h2>
-        <p>TMU Students do you find yourself planning your university timetables but find the school only has it open
-            per semester. Have no Fear, CourseCompass is here. We offer the ability to add courses to your cart and plan
-            out which semester of which year it belongs to. You can even set space aside for job term by selecting its
-            appropriate course</p>
+
+<section class="about">
+    <h2>What We Offer</h2>
+    <div class="content" style="display:none;">
+        <div class="container">
+            <p>TMU Students, do you find yourself planning your university timetables but find the school only has it open
+                per semester? Have no fear, CourseCompass is here. We offer the ability to add courses to your cart and plan
+                out which semester of which year it belongs to. You can even set space aside for a job term by selecting its
+                appropriate course.</p>
+        </div>
     </div>
 </section>
+
 <section id="service" class="about">
-    <div class="container">
-        <h2>What We Offer</h2>
-        <br><img src="/images/allCourses.png" style="width: 80%;">
-        <p>View all the Courses TMU has to offer and filter through by Program, Course Name,
-            or even Course Code. Choose your search type as well, whether it be exactly the search term,
-            starting with something or have something in the middle, we got you covered. Are you thinking
-            of taking a course, then add it to your cart by clicking on the shopping cart next to your desired
-            course.</p>
-        <br><br><img src="/images/myCourses.png" style="width: 80%;">
-        <p>All the courses you add will appear here. Do you have second thoughts about a course. If you change
-            your mind then delete the course by clicking on the trash can next to the appropriate course. You can
-            hover over courses but no need to select them to remove them.</p>
-        <br><br><img src="/images/planCourses.png" style="width: 80%;">
-        <p>This is the Course Plan, basically where you will plan out which courses from your selected courses to take
-            during which Year and which semester. To add a course click the add button, which will bring up a selector showing
-            all your courses, then you must choose one and click the add button. If you want to move a course to a different position,
-            then click the remove button next to the course to remove it, and then add it where you please.</p>
-        <br><br><img src="/images/accountManagement.png" style="width: 80%;">
-        <p>Account Management: No, you can't change your username nor password. You can change your name, date of birth,
-            and email, and then click SAVE to save it. If you don't, it won't.</p>
+    <h2>Our Services</h2>
+    <div class="content" style="display:none;">
+        <div class="slideshow-container">
+
+            <div class="mySlides fade">
+                <div class="numbertext">1 / 4</div>
+                <img src="/images/allCourses.png" style="width:100%">
+                <div class="text">View all the courses TMU has to offer and filter through by Program, Course Name, or Course Code. Choose your
+                    search type as well, whether it be an exact match, starts with, or contains your search term. We’ve got you covered.
+                    Thinking of taking a course? Add it to your cart by clicking the shopping cart icon next to your desired course.</div>
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">2 / 4</div>
+                <img src="/images/myCourses.png" style="width:100%">
+                <div class="text">All the courses you add will appear here. Changed your mind about a course? Delete it by clicking the trash can icon
+                    next to the course. You can hover over courses but no need to select them to remove them.</div>
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">3 / 4</div>
+                <img src="/images/planCourses.png" style="width:100%">
+                <div class="text">This is the Course Plan, where you will plan out which courses to take during which year and semester. To add a course,
+                    click the add button to bring up a selector showing all your courses, then choose one and click the add button. To move
+                    a course to a different position, click the remove button next to the course to remove it, then add it where you please.</div>
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">4 / 4</div>
+                <img src="/images/accountManagement.png" style="width:100%">
+                <div class="text">Account Management: No, you can't change your username or password. You can change your name, date of birth,
+                    and email, then click SAVE to save it. If you don't, it won't.</div>
+            </div>
+
+            <!-- Next and previous buttons -->
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <br>
+
+        <!-- The dots/circles -->
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+        </div>
     </div>
 </section>
+
+<section class="reviews">
+    <h2>User Reviews</h2>
+    <div class="container">
+        <div class="review">
+            <h3>John Doe</h3>
+            <p>CourseCompass made my course planning so much easier! I can now plan my entire university career with ease. Highly recommended!</p>
+        </div>
+        <div class="review">
+            <h3>Jane Smith</h3>
+            <p>The user interface is so friendly and intuitive. Adding and managing courses is a breeze. Thank you, CourseCompass!</p>
+        </div>
+        <div class="review">
+            <h3>Michael Brown</h3>
+            <p>Great service and very helpful for students. The course filtering feature is fantastic. I found the courses I needed in no time!</p>
+        </div>
+    </div>
+</section>
+
+<section class="contact-form">
+    <h2>Contact Us</h2>
+    <form action="/submit-form" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="column">
+            <h3>About Us</h3>
+            <p>CourseCompass is dedicated to helping TMU students manage their course selections with ease and efficiency.</p>
+        </div>
+        <div class="column">
+            <h3>Contact Information</h3>
+            <p>Email: support@coursecompass.com</p>
+            <p>Phone: +1 234 567 890</p>
+            <p>Address: 123 University Ave, City, Country</p>
+        </div>
+        <div class="column">
+            <h3>Follow Us</h3>
+            <p><a href="#">Facebook</a></p>
+            <p><a href="#">Twitter</a></p>
+            <p><a href="#">Instagram</a></p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    // Next/previous controls
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    // Thumbnail image controls
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+    }
+</script>
 </body>
 </html>
