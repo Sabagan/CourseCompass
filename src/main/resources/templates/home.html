@@ -6,6 +6,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="/css/home.css">
     <link rel="icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -74,10 +75,10 @@
 </section>
 
 <section class="about">
-    <h2 style="color: white">What We Offer</h2>
+    <h2>What We Offer</h2>
     <div class="content">
         <div class="container">
-            <p style="color: white">TMU Students, do you find yourself planning your university timetables but find the school only has it open
+            <p>TMU Students, do you find yourself planning your university timetables but find the school only has it open
                 per semester? Have no fear, CourseCompass is here. We offer the ability to add courses to your cart and plan
                 out which semester of which year it belongs to. You can even set space aside for a job term by selecting its
                 appropriate course.</p>
@@ -86,7 +87,7 @@
 </section>
 
 <section id="service" class="about">
-    <h2 style="color: white">Our Services</h2>
+    <h2>Our Services</h2>
     <div class="content">
         <div class="slideshow-container">
 
@@ -163,39 +164,52 @@
     </div>
 </section>
 
-<section class="contact-form">
-    <h2>Contact Us</h2>
-    <form action="/submit-form" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" rows="4" required></textarea>
-
-        <button type="submit">Submit</button>
-    </form>
+<section class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="container">
+        <div class="faq-item">
+            <h3>How do I register?</h3>
+            <p>You can register by clicking on the 'Register' link in the navigation bar and filling out the registration form.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How do I add courses to my cart?</h3>
+            <p>To add courses to your cart, browse through the available courses and click the shopping cart icon next to the course you want to add.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Can I change my course selection?</h3>
+            <p>Yes, you can change your course selection at any time by removing courses from your cart and adding new ones.</p>
+        </div>
+    </div>
 </section>
 
 <footer class="footer">
     <div class="container">
-        <div class="column">
+        <div>
             <h3>About Us</h3>
             <p>CourseCompass is dedicated to helping TMU students manage their course selections with ease and efficiency. We are not part a subsidiary of TMU</p>
         </div>
         <div class="column">
             <h3>Contact Information</h3>
-            <p>Email: support@coursecompass.com</p>
-            <p>Phone: +1 416 979 5000</p>
-            <p>Address: 350 Victoria Street, Toronto, ON M5B 2K3</p>
+            <p>support@coursecompass.com</p>
+            <p>Pn: +1 416 979 5000</p>
+            <p>350 Victoria Street, Toronto, ON M5B 2K3</p>
+        </div>
+        <div class="column">
+            <h3>Contact Us</h3>
+            <form action="/submit_contact_form" method="post">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
         </div>
         <div class="column">
             <h3>Follow Us</h3>
-            <p><a href="#">Facebook</a></p>
-            <p><a href="#">X</a></p>
-            <p><a href="#">Instagram</a></p>
+            <p>
+                <a href="https://www.facebook.com/torontomet"><i class="fab fa-facebook-f" title="Facebook"></i></a>
+                <a href="https://x.com/torontomet"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/torontomet/"><i class="fab fa-instagram"></i></a>
+            </p>
         </div>
     </div>
 </footer>
