@@ -9,22 +9,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Toggle the visibility of sections
-            $('h2').click(function () {
-                $(this).next('.content').slideToggle('slow');
-            });
 
             // Add fade-in effect for hero section
             $('.hero').hide().fadeIn(2000);
-
-            // Add hover effect to navbar links
-            $('.nav-links a').hover(
-                function() {
-                    $(this).css('color', '#ff6600');
-                }, function() {
-                    $(this).css('color', '');
-                }
-            );
 
             // Add hover effect to images
             $('img').hover(
@@ -87,10 +74,10 @@
 </section>
 
 <section class="about">
-    <h2>What We Offer</h2>
-    <div class="content" style="display:none;">
+    <h2 style="color: white">What We Offer</h2>
+    <div class="content">
         <div class="container">
-            <p>TMU Students, do you find yourself planning your university timetables but find the school only has it open
+            <p style="color: white">TMU Students, do you find yourself planning your university timetables but find the school only has it open
                 per semester? Have no fear, CourseCompass is here. We offer the ability to add courses to your cart and plan
                 out which semester of which year it belongs to. You can even set space aside for a job term by selecting its
                 appropriate course.</p>
@@ -99,8 +86,8 @@
 </section>
 
 <section id="service" class="about">
-    <h2>Our Services</h2>
-    <div class="content" style="display:none;">
+    <h2 style="color: white">Our Services</h2>
+    <div class="content">
         <div class="slideshow-container">
 
             <div class="mySlides fade">
@@ -153,16 +140,25 @@
     <h2>User Reviews</h2>
     <div class="container">
         <div class="review">
-            <h3>John Doe</h3>
-            <p>CourseCompass made my course planning so much easier! I can now plan my entire university career with ease. Highly recommended!</p>
+            <div class="review-img-container">
+                <img src="/images/people/keerthy-suresh.jpg">
+            </div>
+            <h3 style="color: white">Keerthy Suresh</h3>
+            <p style="color: white">CourseCompass made my course planning so much easier! I can now plan my entire university career with ease. Highly recommended!</p>
         </div>
         <div class="review">
-            <h3>Jane Smith</h3>
-            <p>The user interface is so friendly and intuitive. Adding and managing courses is a breeze. Thank you, CourseCompass!</p>
+            <div class="review-img-container">
+                <img src="/images/people/dulquer-salmaan.jpg">
+            </div>
+            <h3 style="color: white">Dulquer Salmaan</h3>
+            <p style="color: white">The user interface is so friendly and intuitive. Adding and managing courses is a breeze. Thank you, CourseCompass!</p>
         </div>
         <div class="review">
-            <h3>Michael Brown</h3>
-            <p>Great service and very helpful for students. The course filtering feature is fantastic. I found the courses I needed in no time!</p>
+            <div class="review-img-container">
+                <img src="/images/people/pooja-hedge.jpeg">
+            </div>
+            <h3 style="color: white">Pooja Hedge</h3>
+            <p style="color: white">Great service and very helpful for students. The course filtering feature is fantastic. I found the courses I needed in no time!</p>
         </div>
     </div>
 </section>
@@ -187,18 +183,18 @@
     <div class="container">
         <div class="column">
             <h3>About Us</h3>
-            <p>CourseCompass is dedicated to helping TMU students manage their course selections with ease and efficiency.</p>
+            <p>CourseCompass is dedicated to helping TMU students manage their course selections with ease and efficiency. We are not part a subsidiary of TMU</p>
         </div>
         <div class="column">
             <h3>Contact Information</h3>
             <p>Email: support@coursecompass.com</p>
-            <p>Phone: +1 234 567 890</p>
-            <p>Address: 123 University Ave, City, Country</p>
+            <p>Phone: +1 416 979 5000</p>
+            <p>Address: 350 Victoria Street, Toronto, ON M5B 2K3</p>
         </div>
         <div class="column">
             <h3>Follow Us</h3>
             <p><a href="#">Facebook</a></p>
-            <p><a href="#">Twitter</a></p>
+            <p><a href="#">X</a></p>
             <p><a href="#">Instagram</a></p>
         </div>
     </div>

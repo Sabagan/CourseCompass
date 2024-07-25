@@ -2,6 +2,7 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+    background-color: #565b63;
 }
 
 .navbar {
@@ -79,7 +80,6 @@ body, html {
 }
 
 .about {
-    background-color: #fff;
     text-align: center;
 }
 
@@ -97,6 +97,10 @@ body, html {
 .container {
     width: 80%;
     margin: 0 auto;
+}
+
+.content {
+    margin-bottom: 30px;
 }
 
 /* Slideshow container */
@@ -227,7 +231,7 @@ body, html {
 
 /* Contact form styling */
 .contact-form {
-    background-color: #f9f9f9;
+    background-color: whitesmoke;
     padding: 20px;
     border-radius: 5px;
 }
@@ -264,7 +268,7 @@ body, html {
 
 /* User reviews styling */
 .reviews {
-    background-color: #f0f0f0;
+    background-color: aliceblue;
     padding: 50px 0;
     text-align: center;
 }
@@ -279,13 +283,34 @@ body, html {
 }
 
 .review {
-    background-color: white;
+    position: relative;
+    background-color: #e2991a;
     padding: 20px;
-    margin: 20px 0;
+    margin: 50px 0;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
 .review h3 {
+    margin-top: 30px;
     margin-bottom: 10px;
+}
+
+.review p {
+    margin-top: 10px;
+}
+
+.review-img-container {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.review-img-container img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #fff;
 }
