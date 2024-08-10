@@ -101,10 +101,11 @@ public class AppController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam String username, @RequestParam String password) {
+    public String register(@RequestParam String username, @RequestParam String password, @RequestParam String email) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
+        user.setEmail(email);
         userService.saveUser(user);
 
         return "redirect:/login";

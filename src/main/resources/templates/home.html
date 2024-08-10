@@ -183,31 +183,42 @@
 </section>
 
 <footer class="footer">
-    <div class="container">
-        <div>
-            <h3>About Us</h3>
-            <p>CourseCompass is dedicated to helping TMU students manage their course selections with ease and efficiency. We are not part a subsidiary of TMU</p>
-            <img src="/images/logo.png" style="width: 100%;">
-        </div>
+    <div>
+        <img id="logo-footer" src="/images/logo.png">
+    </div>
 
-        <div class="column">
+    <div id="contact-form">
+        <h3>Contact Us</h3>
+        <form action="/submit_contact_form" method="post">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" placeholder="Your Name" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" placeholder="Your Email" required>
+            </div>
+            <div>
+                <label for="phone">Phone Number</label>
+                <input type="tel" name="phone" id="phone" placeholder="Your Number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+            </div>
+            <div>
+                <label for="msg">Message:</label>
+                <textarea name="message" id="msg" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <div id="bottom">
+        <div id="info">
             <h3>Contact Information</h3>
             <p>support@coursecompass.com</p>
             <p>+1 416 979 5000</p>
             <p>350 Victoria Street, Toronto, ON M5B 2K3</p>
         </div>
 
-        <div class="column">
-            <h3>Contact Us</h3>
-            <form action="/submit_contact_form" method="post">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Your Message" required></textarea>
-                <button type="submit">Send</button>
-            </form>
-        </div>
-
-        <div class="column">
+        <div id="follow">
             <h3>Follow Us</h3>
             <p>
                 <a class="socials-box" href="https://www.facebook.com/torontomet">
@@ -221,7 +232,6 @@
                 </a>
             </p>
         </div>
-
     </div>
 </footer>
 

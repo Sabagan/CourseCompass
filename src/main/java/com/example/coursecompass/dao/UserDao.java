@@ -17,6 +17,16 @@ public class UserDao {
         return jdbcTemplate.queryForObject(sql, new Object[]{username}, new UserRowMapper());
     }
 
+//    public User findByEmail(String email) {
+//        String sql = "SELECT * FROM user WHERE email = ?";
+//        return jdbcTemplate.queryForObject(sql, new Object[]{email}, new UserRowMapper());
+//    }
+//
+//    public User findByVerificationToken(String verificationToken) {
+//        String sql = "SELECT * FROM user WHERE verification_token = ?";
+//        return jdbcTemplate.queryForObject(sql, new Object[]{verificationToken}, new UserRowMapper());
+//    }
+
     public void save(User user) {
         if (user.getId() == null) {
             String sql = "INSERT INTO user (username, password, name, dob, email) VALUES (?, ?, ?, ?, ?)";
