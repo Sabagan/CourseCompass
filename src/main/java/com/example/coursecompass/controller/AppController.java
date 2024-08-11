@@ -7,6 +7,8 @@ import com.example.coursecompass.service.CourseService;
 import com.example.coursecompass.service.MycourseService;
 import com.example.coursecompass.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,7 @@ public class AppController {
 
     private static final String CAPTCHA_KEY = "CAPTCHA_KEY";
     private final Random random = new Random();
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
     private UserService userService;
@@ -106,10 +109,13 @@ public class AppController {
 
     @PostMapping("/register")
     public String register(@RequestParam String username, @RequestParam String password, @RequestParam String email) {
+        String encodedPassword = passwordEncoder.encode(password);
+
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
+        user.setPassword(encodedPassword);
         user.setEmail(email);
+
         userService.saveUser(user);
 
         return "redirect:/login";
@@ -134,7 +140,7 @@ public class AppController {
         }
 
         User user = userService.findUserByUsername(username);
-        if (user != null && user.getPassword().equals(password)) {
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             session.setAttribute("loggedInUser", username);
             model.addAttribute("username", user.getUsername());
             List<Course> courses = courseService.getCourses();
