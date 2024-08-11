@@ -10,8 +10,6 @@ public class User {
     private String name;
     private Date dob;
     private String email;
-//    private boolean enabled;
-//    private String verificationToken;
 
     private Set<Course> courses = new HashSet<>();
 
@@ -65,32 +63,11 @@ public class User {
         this.email = email;
     }
 
-//    public boolean isEnabled() {
-//        return enabled;
-//    }
-//
-//    public void setEnabled(boolean enabled) {
-//        this.enabled = enabled;
-//    }
-//
-//    public String getVerificationToken() {
-//        return verificationToken;
-//    }
-//
-//    public void setVerificationToken(String verificationToken) {
-//        this.verificationToken = verificationToken;
-//    }
-
     public Set<Course> getCourses() {
         return courses;
     }
 
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
-    }
-
-    public void addCourse(Course course) {
-        this.courses.add(course);
-        course.getUsers().add(this);
     }
 }

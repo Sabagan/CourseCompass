@@ -37,7 +37,4 @@ public class CourseService {
         return courseDao.findAll(); //new
     }
 
-//    public void saveCourse(Course course) {
-//        courseDao.save(course);
-//    }
 }

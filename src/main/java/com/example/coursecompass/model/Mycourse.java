@@ -8,7 +8,6 @@ public class Mycourse {
     private String courseName;
     private String courseDescription;
 
-    // Getters and setters
     public Long getUserId() {
         return userId;
     }
