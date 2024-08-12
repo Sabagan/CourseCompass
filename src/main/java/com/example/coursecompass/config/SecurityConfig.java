@@ -47,7 +47,8 @@ public class SecurityConfig {
                                 "/api/courses", "/api/addCourse", "/api/deleteCourse",
                                 "/api/timetable/save", "/api/timetable/availableCourses",
                                 "/api/timetable/all", "/api/timetable/remove",
-                                "/css/**", "/js/**", "/images/**").permitAll()
+                                "/css/**", "/js/**", "/images/**",
+                                "/swagger-ui.html", "swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
