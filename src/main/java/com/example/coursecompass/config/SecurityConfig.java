@@ -46,7 +46,8 @@ public class SecurityConfig {
                                 "/api/account/data", "/api/account/update", "/account",
                                 "/api/courses", "/api/addCourse", "/api/deleteCourse",
                                 "/api/timetable/save", "/api/timetable/availableCourses",
-                                "/api/timetable/all", "/api/timetable/remove").permitAll()
+                                "/api/timetable/all", "/api/timetable/remove",
+                                "/css/**", "/js/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
