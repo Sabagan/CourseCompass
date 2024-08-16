@@ -1,7 +1,7 @@
 package com.example.coursecompass.service;
 
 import com.example.coursecompass.dao.TimetableDao;
-import com.example.coursecompass.model.Timetable;
+import com.example.coursecompass.model.TimetableCourse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,14 +21,14 @@ public class TimetableServiceTest {
 
     @Test
     void addCourseToTimetable_ShouldCallAddCourseToTimetableDao() {
-        Timetable timetable = new Timetable();
-        timetable.setCourseName("Computer Science II");
-        timetable.setYear(1);
-        timetable.setSemester("Winter");
+        TimetableCourse timetableCourse = new TimetableCourse();
+        timetableCourse.setCourseName("Computer Science II");
+        timetableCourse.setYear(1);
+        timetableCourse.setSemester("Winter");
 
-        timetableService.addCourseToTimetable(timetable);
+        timetableService.addCourseToTimetable(timetableCourse);
 
-        verify(timetableDao).addCourseToTimetable(timetable);
+        verify(timetableDao).addCourseToTimetable(timetableCourse);
     }
 
     @Test
@@ -47,10 +47,10 @@ public class TimetableServiceTest {
 
     @Test
     void findByUserId_ShouldReturnTimetableCourses_WhenUserIdIsFound() {
-        Timetable timetable = new Timetable();
-        timetable.setUserId(1L);
+        TimetableCourse timetableCourse = new TimetableCourse();
+        timetableCourse.setUserId(1L);
 
-        timetableService.findByUserId(timetable.getUserId());
+        timetableService.findByUserId(timetableCourse.getUserId());
 
         verify(timetableDao).findByUserId(1L);
     }

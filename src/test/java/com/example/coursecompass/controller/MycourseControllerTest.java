@@ -1,2 +1,4 @@
-package com.example.coursecompass.controller;public class MycourseControllerTest {
+package com.example.coursecompass.controller;
+
+public class MycourseControllerTest {
 }

@@ -1,7 +1,7 @@
 package com.example.coursecompass.service;
 
 import com.example.coursecompass.dao.TimetableDao;
-import com.example.coursecompass.model.Timetable;
+import com.example.coursecompass.model.TimetableCourse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +14,8 @@ public class TimetableService {
         this.timetableDao = timetableDao;
     }
 
-    public void addCourseToTimetable(Timetable timetable) {
-        timetableDao.addCourseToTimetable(timetable);
+    public void addCourseToTimetable(TimetableCourse timetableCourse) {
+        timetableDao.addCourseToTimetable(timetableCourse);
     }
 
     public void removeCourseFromTimetable(Long userId, String courseName, Integer year, String semester) {
@@ -26,7 +26,7 @@ public class TimetableService {
         timetableDao.removeCourseFromTimetable(userId, courseName);
     }
 
-    public List<Timetable> findByUserId(Long userId) {
+    public List<TimetableCourse> findByUserId(Long userId) {
         return timetableDao.findByUserId(userId);
     }
 }

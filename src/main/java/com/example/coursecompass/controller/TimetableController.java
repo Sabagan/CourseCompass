@@ -1,7 +1,7 @@
 package com.example.coursecompass.controller;
 
 import com.example.coursecompass.model.Mycourse;
-import com.example.coursecompass.model.Timetable;
+import com.example.coursecompass.model.TimetableCourse;
 import com.example.coursecompass.model.User;
 import com.example.coursecompass.service.MycourseService;
 import com.example.coursecompass.service.TimetableService;
@@ -33,11 +33,11 @@ public class TimetableController {
     }
 
     @PostMapping("/save")
-    public void saveTimetable(@RequestBody Timetable timetable, HttpSession session) {
+    public void saveTimetable(@RequestBody TimetableCourse timetableCourse, HttpSession session) {
         String username = (String) session.getAttribute("loggedInUser");
         User loggedInUser = userService.findUserByUsername(username);
-        timetable.setUserId(loggedInUser.getId());
-        timetableService.addCourseToTimetable(timetable);
+        timetableCourse.setUserId(loggedInUser.getId());
+        timetableService.addCourseToTimetable(timetableCourse);
     }
 
     @GetMapping("/availableCourses")
@@ -47,16 +47,16 @@ public class TimetableController {
         Long userId = loggedInUser.getId();
 
         List<Mycourse> myCourses = mycourseService.findByUserId(userId);
-        List<Timetable> timetable = timetableService.findByUserId(userId);
+        List<TimetableCourse> timetableCourse = timetableService.findByUserId(userId);
         return myCourses.stream()
-                .filter(course -> timetable.stream().noneMatch(entry -> entry.getCourseName().equals(course.getCourseName())))
+                .filter(course -> timetableCourse.stream().noneMatch(entry -> entry.getCourseName().equals(course.getCourseName())))
                 .collect(Collectors.toList());
     }
 
 
     @GetMapping("/all")
     @ResponseBody
-    public List<Timetable> getTimetable(HttpSession session) {
+    public List<TimetableCourse> getTimetable(HttpSession session) {
         String username = (String) session.getAttribute("loggedInUser");
         User loggedInUser = userService.findUserByUsername(username);
         return timetableService.findByUserId(loggedInUser.getId());

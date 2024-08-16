@@ -1,7 +1,7 @@
 package com.example.coursecompass.dao;
 
 
-import com.example.coursecompass.model.Timetable;
+import com.example.coursecompass.model.TimetableCourse;
 import com.example.coursecompass.rowmapper.TimetableRowMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class TimetableDaoTest {
+public class TimetableCourseDaoTest {
 
     @InjectMocks
     private TimetableDao timetableDao;
@@ -27,20 +27,20 @@ public class TimetableDaoTest {
 
     @Test
     void addCourseToTimetable_ShouldInsertCourse() {
-        Timetable timetable = new Timetable();
-        timetable.setUserId(1L);
-        timetable.setYear(1);
-        timetable.setSemester("Fall");
-        timetable.setCourseName("Math 101");
+        TimetableCourse timetableCourse = new TimetableCourse();
+        timetableCourse.setUserId(1L);
+        timetableCourse.setYear(1);
+        timetableCourse.setSemester("Fall");
+        timetableCourse.setCourseName("Math 101");
 
-        timetableDao.addCourseToTimetable(timetable);
+        timetableDao.addCourseToTimetable(timetableCourse);
 
         verify(jdbcTemplate).update(
                 "INSERT INTO timetable (user_id, year, semester, course_name) VALUES (?, ?, ?, ?)",
-                timetable.getUserId(),
-                timetable.getYear(),
-                timetable.getSemester(),
-                timetable.getCourseName()
+                timetableCourse.getUserId(),
+                timetableCourse.getYear(),
+                timetableCourse.getSemester(),
+                timetableCourse.getCourseName()
         );
     }
 
@@ -79,21 +79,21 @@ public class TimetableDaoTest {
     @Test
     void findByUserId_ShouldReturnListOfTimetable_WhenUserIdExists() {
         Long userId = 1L;
-        List<Timetable> mockTimetables = new ArrayList<>();
-        Timetable timetable1 = new Timetable();
-        timetable1.setUserId(userId);
-        timetable1.setYear(1);
-        timetable1.setSemester("Fall");
-        timetable1.setCourseName("Math 101");
-        mockTimetables.add(timetable1);
+        List<TimetableCourse> mockTimetableCourses = new ArrayList<>();
+        TimetableCourse timetableCourse1 = new TimetableCourse();
+        timetableCourse1.setUserId(userId);
+        timetableCourse1.setYear(1);
+        timetableCourse1.setSemester("Fall");
+        timetableCourse1.setCourseName("Math 101");
+        mockTimetableCourses.add(timetableCourse1);
 
         when(jdbcTemplate.query(
                 eq("SELECT * FROM timetable WHERE user_id = ?"),
                 any(Object[].class),
                 any(TimetableRowMapper.class)
-        )).thenReturn(mockTimetables);
+        )).thenReturn(mockTimetableCourses);
 
-        List<Timetable> result = timetableDao.findByUserId(userId);
+        List<TimetableCourse> result = timetableDao.findByUserId(userId);
 
         assertEquals(1, result.size());
         assertEquals("Math 101", result.get(0).getCourseName());

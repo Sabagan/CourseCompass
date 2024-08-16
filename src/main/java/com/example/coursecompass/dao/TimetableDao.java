@@ -1,6 +1,6 @@
 package com.example.coursecompass.dao;
 
-import com.example.coursecompass.model.Timetable;
+import com.example.coursecompass.model.TimetableCourse;
 import com.example.coursecompass.rowmapper.TimetableRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,9 +15,9 @@ public class TimetableDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void addCourseToTimetable(Timetable timetable) {
+    public void addCourseToTimetable(TimetableCourse timetableCourse) {
         String sql = "INSERT INTO timetable (user_id, year, semester, course_name) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, timetable.getUserId(), timetable.getYear(), timetable.getSemester(), timetable.getCourseName());
+        jdbcTemplate.update(sql, timetableCourse.getUserId(), timetableCourse.getYear(), timetableCourse.getSemester(), timetableCourse.getCourseName());
     }
 
     public void removeCourseFromTimetable(Long userId, String courseName, Integer year, String semester) {
@@ -30,7 +30,7 @@ public class TimetableDao {
         jdbcTemplate.update(sql, userId, courseName);
     }
 
-    public List<Timetable> findByUserId(Long userId) {
+    public List<TimetableCourse> findByUserId(Long userId) {
         String sql = "SELECT * FROM timetable WHERE user_id = ?";
         return jdbcTemplate.query(sql, new Object[]{userId}, new TimetableRowMapper());
     }

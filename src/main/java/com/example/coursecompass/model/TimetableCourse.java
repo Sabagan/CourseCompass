@@ -1,15 +1,15 @@
 package com.example.coursecompass.model;
 
-public class Timetable {
+public class TimetableCourse {
 
     private Long userId;
     private int year;
     private String semester;
     private String courseName;
 
-    public Timetable() {}
+    public TimetableCourse() {}
 
-    public Timetable(Long userId, int year, String semester, String courseName) {
+    public TimetableCourse(Long userId, int year, String semester, String courseName) {
         this.userId = userId;
         this.year = year;
         this.semester = semester;

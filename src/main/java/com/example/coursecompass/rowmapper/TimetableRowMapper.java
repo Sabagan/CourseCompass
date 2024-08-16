@@ -1,19 +1,19 @@
 package com.example.coursecompass.rowmapper;
 
-import com.example.coursecompass.model.Timetable;
+import com.example.coursecompass.model.TimetableCourse;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TimetableRowMapper implements RowMapper<Timetable> {
+public class TimetableRowMapper implements RowMapper<TimetableCourse> {
     @Override
-    public Timetable mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Timetable timetable = new Timetable();
-        timetable.setUserId(rs.getLong("user_id"));
-        timetable.setYear(rs.getInt("year"));
-        timetable.setSemester(rs.getString("semester"));
-        timetable.setCourseName(rs.getString("course_name"));
-        return timetable;
+    public TimetableCourse mapRow(ResultSet rs, int rowNum) throws SQLException {
+        TimetableCourse timetableCourse = new TimetableCourse();
+        timetableCourse.setUserId(rs.getLong("user_id"));
+        timetableCourse.setYear(rs.getInt("year"));
+        timetableCourse.setSemester(rs.getString("semester"));
+        timetableCourse.setCourseName(rs.getString("course_name"));
+        return timetableCourse;
     }
 }
