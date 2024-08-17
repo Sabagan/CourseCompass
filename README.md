@@ -81,6 +81,9 @@ Open the web browser and navigate to `https:localhost:8080` to access the applic
 
 ## ✨ View of the Application
 
+### Home Page
+![image](https://github.com/user-attachments/assets/2d6803d0-c4ac-4967-a101-d8f5e69c5441)
+
 ### Account Management
 ![image](https://github.com/user-attachments/assets/32faa259-5016-4503-82e9-4c90b6f96cec)
 
