@@ -44,7 +44,76 @@ public class AppControllerTest {
     private PasswordEncoder passwordEncoder;
 
     @Test
-    void showProfile_ReturnsProfilePage() {
+    void home_ReturnsOnEntry() {
+        assertEquals(appController.home(), "home");
+    }
+
+    @Test
+    void showPlan_WhenLoggedIn() {
+        String username = "testUser";
+
+        when(session.getAttribute("loggedInUser")).thenReturn(username);
+
+        assertEquals(appController.showPlan(session), "plan");
+    }
+
+    @Test
+    void showPlan_WhenNotLoggedIn() {
+        when(session.getAttribute("loggedInUser")).thenReturn(null);
+
+        assertEquals(appController.showPlan(session), "redirect:/login");
+    }
+
+    @Test
+    void showWelcome_WhenLoggedIn() {
+        String username = "testUser";
+
+        when(session.getAttribute("loggedInUser")).thenReturn(username);
+
+        assertEquals(appController.showWelcome(session), "welcome");
+    }
+
+    @Test
+    void showWelcome_WhenNotLoggedIn() {
+        when(session.getAttribute("loggedInUser")).thenReturn(null);
+
+        assertEquals(appController.showWelcome(session), "redirect:/login");
+    }
+
+    @Test
+    void showAccount_WhenLoggedIn() {
+        String username = "testUser";
+
+        when(session.getAttribute("loggedInUser")).thenReturn(username);
+
+        assertEquals(appController.showAccount(session), "account");
+    }
+
+    @Test
+    void showAccount_WhenNotLoggedIn() {
+        when(session.getAttribute("loggedInUser")).thenReturn(null);
+
+        assertEquals(appController.showAccount(session), "redirect:/login");
+    }
+
+    @Test
+    void showRecommendations_WhenLoggedIn() {
+        String username = "testUser";
+
+        when(session.getAttribute("loggedInUser")).thenReturn(username);
+
+        assertEquals(appController.showRecommendations(session), "recommendations");
+    }
+
+    @Test
+    void showRecommendations_WhenNotLoggedIn() {
+        when(session.getAttribute("loggedInUser")).thenReturn(null);
+
+        assertEquals(appController.showRecommendations(session), "redirect:/login");
+    }
+
+    @Test
+    void showProfile_WhenLoggedIn() {
         User mockUser = new User();
         mockUser.setUsername("testUser");
         mockUser.setId(1L);
@@ -58,7 +127,14 @@ public class AppControllerTest {
     }
 
     @Test
-    void showMyCourses_ReturnsMyCoursesPage() {
+    void showProfile_WhenNotLoggedIn() {
+        when(session.getAttribute("loggedInUser")).thenReturn(null);
+
+        assertEquals(appController.showProfile(model, session), "redirect:/login");
+    }
+
+    @Test
+    void showMyCourses_WhenLoggedIn() {
         User mockUser = new User();
         mockUser.setUsername("testUser");
         mockUser.setId(1L);
@@ -69,6 +145,13 @@ public class AppControllerTest {
 
         assertEquals(appController.showMyCourses(model, session), "mycourses");
         verify(model).addAttribute("courses", List.of());
+    }
+
+    @Test
+    void showMyCourses_WhenNotLoggedIn() {
+        when(session.getAttribute("loggedInUser")).thenReturn(null);
+
+        assertEquals(appController.showMyCourses(model, session), "redirect:/login");
     }
 
     @Test
@@ -108,21 +191,45 @@ public class AppControllerTest {
         String password = "testPassword";
         String captcha = "testCaptcha";
 
+        // Create a mock user with an encoded password
         User mockUser = new User();
         mockUser.setUsername(username);
-        mockUser.setPassword(password);
+        mockUser.setPassword("$2a$10$6yuEKxAqesf2Ms5grDHlheUSksVml8CjLWbWx8/qo5sfzA7MxInxG"); // Simulating an encoded password
 
+        // Mock session, service calls, and password matching
         when(session.getAttribute("CAPTCHA_KEY")).thenReturn(captcha);
+
         when(userService.findUserByUsername(username)).thenReturn(mockUser);
-        when(passwordEncoder.matches(password, mockUser.getPassword())).thenReturn(true);
-        when(courseService.getCourses()).thenReturn(List.of(new Course()));
+
+        when(courseService.getCourses()).thenReturn(List.of(new Course())); // Mock course list
 
         // Act
         String viewName = appController.login(username, password, captcha, model, session);
 
         // Assert
-//        assertEquals("redirect:/welcome", viewName);
-//        verify(session).setAttribute("loggedIn  seService.getCourses());
+        assertEquals("redirect:/welcome", viewName); // Expecting a redirect to /welcome
+        verify(session).setAttribute("loggedInUser", username);
+        verify(model).addAttribute("username", mockUser.getUsername());
+        verify(model).addAttribute("courses", courseService.getCourses());
+    }
+
+    @Test
+    void login_ShouldReturnRedirectToLogin_WhenCredentialsAreIncorrect() {
+        // Arrange
+        String username = "testUser";
+        String password = "testPassword";
+        String captcha = "testCaptcha";
+
+        when(session.getAttribute("CAPTCHA_KEY")).thenReturn(captcha);
+
+        when(userService.findUserByUsername(username)).thenReturn(null);
+
+        // Act
+        String viewName = appController.login(username, password, captcha, model, session);
+
+        // Assert
+        assertEquals("redirect:/login", viewName);
+        verify(model).addAttribute("message", "Invalid username or password");
     }
 
     @Test
@@ -140,5 +247,11 @@ public class AppControllerTest {
         // Assert
         assertEquals("login", viewName);
         verify(model).addAttribute("message", "CAPTCHA verification failed!");
+    }
+
+    @Test
+    void logout_ShouldInvalidateSession_WhileRedirecting() {
+        assertEquals(appController.logout(session), "redirect:/");
+        verify(session).invalidate();
     }
 }
