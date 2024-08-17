@@ -79,6 +79,17 @@ mvn spring-boot:run
 
 Open the web browser and navigate to `https:localhost:8080` to access the application.
 
+## ✨ View of the Application
+
+![image](https://github.com/user-attachments/assets/32faa259-5016-4503-82e9-4c90b6f96cec)
+
+![image](https://github.com/user-attachments/assets/5e0b9be4-1365-4fa5-b478-3ad2fdcdd503)
+
+![image](https://github.com/user-attachments/assets/9e7a428c-aac5-477e-9ca1-1d10e521dd4a)
+
+![image](https://github.com/user-attachments/assets/7f6562b8-cc8d-4e6c-bb17-c1a20af4db0c)
+
+
 ## 🛠️ Important to Note 📌
 
 - MySQL must be running and the details for it in application.properties must be correct
