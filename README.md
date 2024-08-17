@@ -81,12 +81,16 @@ Open the web browser and navigate to `https:localhost:8080` to access the applic
 
 ## ✨ View of the Application
 
+### Account Management
 ![image](https://github.com/user-attachments/assets/32faa259-5016-4503-82e9-4c90b6f96cec)
 
+### Course Cataloge
 ![image](https://github.com/user-attachments/assets/5e0b9be4-1365-4fa5-b478-3ad2fdcdd503)
 
+### Course Cart
 ![image](https://github.com/user-attachments/assets/9e7a428c-aac5-477e-9ca1-1d10e521dd4a)
 
+### Timetable Maker
 ![image](https://github.com/user-attachments/assets/7f6562b8-cc8d-4e6c-bb17-c1a20af4db0c)
 
 
