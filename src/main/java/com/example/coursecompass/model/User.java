@@ -5,6 +5,7 @@ import java.util.*;
 public class User {
 
     private Long id;
+    private int numOfTimetables;
     private String username;
     private String password;
     private String name;
@@ -21,6 +22,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getNumOfTimetables() {
+        return numOfTimetables;
+    }
+
+    public void setNumOfTimetables(int numOfTimetables) {
+        this.numOfTimetables = numOfTimetables;
     }
 
     public String getUsername() {

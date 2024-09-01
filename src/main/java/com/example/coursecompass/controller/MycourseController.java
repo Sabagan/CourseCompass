@@ -3,8 +3,9 @@ package com.example.coursecompass.controller;
 import com.example.coursecompass.model.Mycourse;
 import com.example.coursecompass.model.User;
 import com.example.coursecompass.service.MycourseService;
-import com.example.coursecompass.service.TimetableService;
+import com.example.coursecompass.service.TimetableCourseService;
 import com.example.coursecompass.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,14 +25,18 @@ public class MycourseController {
     private UserService userService;
 
     @Autowired
-    private TimetableService timetableService;
+    private TimetableCourseService timetableService;
 
+    @Operation(summary = "Get all the Course Names",
+            description = "Get the names of all the courses")
     @GetMapping("/courses")
     public List<String> getAllCourseNames() {
         List<String> courseNames = mycourseService.getAllCourseNames();
         return courseNames;
     }
 
+    @Operation(summary = "Adds the Course",
+            description = "Course is added to users myCourses tab. Upon success, the appropriate message is returned. If course is not added, it means course already exists.")
     @PostMapping("/addCourse")
     public ResponseEntity<String> addCourse(@RequestParam("courseProgram") String courseProgram,
                                             @RequestParam("courseCode") String courseCode,
@@ -59,6 +64,8 @@ public class MycourseController {
         }
     }
 
+    @Operation(summary = "Deletes the Course",
+            description = "Deletes the Course from myCourses tab and from the timetables that contains those courses")
     @DeleteMapping("/deleteCourse")
     public ResponseEntity<String> deleteCourse(@RequestParam("courseCode") String courseCode,
                                                @RequestParam("courseName") String courseName,

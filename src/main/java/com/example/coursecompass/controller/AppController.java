@@ -2,9 +2,11 @@ package com.example.coursecompass.controller;
 
 import com.example.coursecompass.model.Course;
 import com.example.coursecompass.model.Mycourse;
+import com.example.coursecompass.model.TimetablePlan;
 import com.example.coursecompass.model.User;
 import com.example.coursecompass.service.CourseService;
 import com.example.coursecompass.service.MycourseService;
+import com.example.coursecompass.service.TimetablePlanService;
 import com.example.coursecompass.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,6 +40,9 @@ public class AppController {
 
     @Autowired
     private MycourseService mycourseService;
+
+    @Autowired
+    private TimetablePlanService timetablePlanService;
 
     @GetMapping("/")
     public String home() {
@@ -117,6 +122,13 @@ public class AppController {
         user.setEmail(email);
 
         userService.saveUser(user);
+
+        TimetablePlan timetablePlan = new TimetablePlan();
+        timetablePlan.setUserId(user.getId());
+        timetablePlan.setYears(1);
+        // No Need for SetTimetablePlanId since it auto increments
+
+        timetablePlanService.addTimetable(timetablePlan);
 
         return "redirect:/login";
     }

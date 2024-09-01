@@ -4,7 +4,8 @@ import com.example.coursecompass.model.Mycourse;
 import com.example.coursecompass.model.TimetableCourse;
 import com.example.coursecompass.model.User;
 import com.example.coursecompass.service.MycourseService;
-import com.example.coursecompass.service.TimetableService;
+import com.example.coursecompass.service.TimetableCourseService;
+import com.example.coursecompass.service.TimetablePlanService;
 import com.example.coursecompass.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,10 @@ public class TimetableControllerTest {
     private TimetableController timetableController;
 
     @Mock
-    private TimetableService timetableService;
+    private TimetableCourseService timetableCourseService;
+
+    @Mock
+    private TimetablePlanService timetablePlanService;
 
     @Mock
     private UserService userService;
@@ -54,7 +58,7 @@ public class TimetableControllerTest {
         timetableController.saveTimetable(timetableCourse, session);
         assertEquals(mockUser.getId(), timetableCourse.getUserId());
 
-        verify(timetableService).addCourseToTimetable(timetableCourse);
+        verify(timetableCourseService).addCourseToTimetable(timetableCourse);
     }
 
     @Test
@@ -83,13 +87,13 @@ public class TimetableControllerTest {
         when(userService.findUserByUsername("testUser")).thenReturn(mockUser);
 
         List<TimetableCourse> timetableCourses = List.of(timetableCourse1);
-        when(timetableService.findByUserId(mockUser.getId())).thenReturn(timetableCourses);
+        when(timetableCourseService.findByUserId(mockUser.getId())).thenReturn(timetableCourses);
 
         List<Mycourse> mycourses = List.of(mycourse1, mycourse2);
         when(mycourseService.findByUserId(mockUser.getId())).thenReturn(mycourses);
 
         // Act
-        List<Mycourse> availableCourses = timetableController.getAvailableCourses(session);
+        List<Mycourse> availableCourses = timetableController.getAvailableCourses(1, session);
 
         // Assert
         assertEquals(availableCourses.size(), 1);
@@ -105,10 +109,12 @@ public class TimetableControllerTest {
 
         // Mock timetable courses for the user
         TimetableCourse timetableCourse1 = new TimetableCourse();
+        timetableCourse1.setTimetableId(1);
         timetableCourse1.setCourseName("testCourse1");
         timetableCourse1.setUserId(mockUser.getId());
 
         TimetableCourse timetableCourse2 = new TimetableCourse();
+        timetableCourse2.setTimetableId(1);
         timetableCourse2.setCourseName("testCourse2");
         timetableCourse2.setUserId(mockUser.getId());
 
@@ -126,13 +132,13 @@ public class TimetableControllerTest {
         when(userService.findUserByUsername("testUser")).thenReturn(mockUser);
 
         List<TimetableCourse> timetableCourses = List.of(timetableCourse1, timetableCourse2);
-        when(timetableService.findByUserId(mockUser.getId())).thenReturn(timetableCourses);
+        when(timetableCourseService.findByUserId(mockUser.getId())).thenReturn(timetableCourses);
 
         List<Mycourse> mycourses = List.of(mycourse1, mycourse2);
         when(mycourseService.findByUserId(mockUser.getId())).thenReturn(mycourses);
 
         // Act
-        List<Mycourse> availableCourses = timetableController.getAvailableCourses(session);
+        List<Mycourse> availableCourses = timetableController.getAvailableCourses(1, session);
 
         // Assert
         assertEquals(availableCourses.size(), 0);
@@ -158,12 +164,12 @@ public class TimetableControllerTest {
 
         when(session.getAttribute("loggedInUser")).thenReturn("testUser");
         when(userService.findUserByUsername("testUser")).thenReturn(mockUser);
-        when(timetableService.findByUserId(1l)).thenReturn(List.of(timetableCourse1, timetableCourse3));
+        when(timetableCourseService.findByUserId(1l)).thenReturn(List.of(timetableCourse1, timetableCourse3));
 
         List<TimetableCourse> timetableCourses = timetableController.getTimetable(session);
         assertEquals(timetableCourses.size(), 2);
 
-        verify(timetableService).findByUserId(1l);
+        verify(timetableCourseService).findByUserId(1l);
     }
 
     @Test
@@ -174,12 +180,12 @@ public class TimetableControllerTest {
 
         when(session.getAttribute("loggedInUser")).thenReturn("testUser");
         when(userService.findUserByUsername("testUser")).thenReturn(mockUser);
-        when(timetableService.findByUserId(1l)).thenReturn(List.of());
+        when(timetableCourseService.findByUserId(1l)).thenReturn(List.of());
 
         List<TimetableCourse> timetableCourses = timetableController.getTimetable(session);
         assertEquals(timetableCourses.size(), 0);
 
-        verify(timetableService).findByUserId(1l);
+        verify(timetableCourseService).findByUserId(1l);
     }
 
     @Test
@@ -194,12 +200,27 @@ public class TimetableControllerTest {
         timetableCourse1.setUserId(mockUser.getId());
         timetableCourse1.setSemester("Fall");
         timetableCourse1.setYear(1);
+        timetableCourse1.setTimetableId(1);
 
         when(session.getAttribute("loggedInUser")).thenReturn(username);
         when(userService.findUserByUsername("testUser")).thenReturn(mockUser);
 
-        timetableController.removeCourseFromTimetable(timetableCourse1.getCourseName(), timetableCourse1.getYear(), timetableCourse1.getSemester(), session);
+        timetableController.removeCourseFromTimetable(timetableCourse1.getCourseName(), timetableCourse1.getYear(), timetableCourse1.getSemester(), timetableCourse1.getTimetableId(), session);
 
-        verify(timetableService).removeCourseFromTimetable(timetableCourse1.getUserId(), timetableCourse1.getCourseName(), timetableCourse1.getYear(), timetableCourse1.getSemester());
+        verify(timetableCourseService).removeCourseFromTimetable(timetableCourse1.getUserId(), timetableCourse1.getTimetableId(), timetableCourse1.getCourseName(), timetableCourse1.getYear(), timetableCourse1.getSemester());
+    }
+
+    @Test
+    void getTimetableIds_WhenLoggedIn() {
+        User mockUser = new User();
+        mockUser.setUsername("testUser");
+        mockUser.setId(1L);
+
+        when(session.getAttribute("loggedInUser")).thenReturn("testUser");
+        when(userService.findUserByUsername("testUser")).thenReturn(mockUser);
+
+        timetableController.getTimetableIds(session);
+
+        verify(timetablePlanService).getTimetableIdsByUser(mockUser.getId());
     }
 }

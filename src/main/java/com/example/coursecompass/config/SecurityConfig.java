@@ -46,7 +46,8 @@ public class SecurityConfig {
                                 "/api/account/data", "/api/account/update", "/account",
                                 "/api/courses", "/api/addCourse", "/api/deleteCourse",
                                 "/api/timetable/save", "/api/timetable/availableCourses",
-                                "/api/timetable/all", "/api/timetable/remove",
+                                "/api/timetable/all", "/api/timetable/remove", "/api/timetable/newTimetable",
+                                "/api/timetable/allTimetableIds", "/api/timetable/**",
                                 "/css/**", "/js/**", "/images/**",
                                 "/swagger-ui.html", "swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()

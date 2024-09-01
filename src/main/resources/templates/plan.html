@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/plan.css">
     <link rel="stylesheet" type="text/css" href="/css/navbar.css">
     <link rel="icon" href="/images/favicon.ico">
-    <script src="/js/plan.js"></script>
+<!--    <script src="/js/plan.js"></script>-->
 </head>
 <body>
 <header>
@@ -32,98 +32,6 @@
 
 <div class="container" id="coursePlanContainer">
     <h1>Course Plan</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>Year</th>
-            <th>Fall Semester</th>
-            <th>Winter Semester</th>
-            <th>Summer Semester</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Year 1 -->
-        <tr data-year="1">
-            <td>Year 1</td>
-            <td>
-                <div class="course-container" data-semester="Fall"></div>
-                <button class="add-course-btn" data-year="1" data-semester="Fall">+</button>
-            </td>
-            <td>
-                <div class="course-container" data-semester="Winter"></div>
-                <button class="add-course-btn" data-year="1" data-semester="Winter">+</button>
-            </td>
-            <td>
-                <div class="course-container" data-semester="Summer"></div>
-                <button class="add-course-btn" data-year="1" data-semester="Summer">+</button>
-            </td>
-        </tr>
-        <!-- Year 2 -->
-        <tr data-year="2">
-            <td>Year 2</td>
-            <td>
-                <div class="course-container" data-semester="Fall"></div>
-                <button class="add-course-btn" data-year="2" data-semester="Fall">+</button>
-            </td>
-            <td>
-                <div class="course-container" data-semester="Winter"></div>
-                <button class="add-course-btn" data-year="2" data-semester="Winter">+</button>
-            </td>
-            <td>
-                <div class="course-container" data-semester="Summer"></div>
-                <button class="add-course-btn" data-year="2" data-semester="Summer">+</button>
-            </td>
-        </tr>
-        <!-- Year 3 -->
-        <tr data-year="3">
-            <td>Year 3</td>
-            <td>
-                <div class="course-container" data-semester="Fall"></div>
-                <button class="add-course-btn" data-year="3" data-semester="Fall">+</button>
-            </td>
-            <td>
-                <div class="course-container" data-semester="Winter"></div>
-                <button class="add-course-btn" data-year="3" data-semester="Winter">+</button>
-            </td>
-            <td>
-                <div class="course-container" data-semester="Summer"></div>
-                <button class="add-course-btn" data-year="3" data-semester="Summer">+</button>
-            </td>
-        </tr>
-        <!-- Year 4 -->
-        <tr data-year="4">
-            <td>Year 4</td>
-            <td>
-                <div class="course-container" data-semester="Fall"></div>
-                <button class="add-course-btn" data-year="4" data-semester="Fall">+</button>
-            </td>
-            <td>
-                <div class="course-container" data-semester="Winter"></div>
-                <button class="add-course-btn" data-year="4" data-semester="Winter">+</button>
-            </td>
-            <td>
-                <div class="course-container" data-semester="Summer"></div>
-                <button class="add-course-btn" data-year="4" data-semester="Summer">+</button>
-            </td>
-        </tr>
-        <!-- Year 5 -->
-        <tr data-year="5">
-            <td>Year 5</td>
-            <td>
-                <div class="course-container" data-semester="Fall"></div>
-                <button class="add-course-btn" data-year="5" data-semester="Fall">+</button>
-            </td>
-            <td>
-                <div class="course-container" data-semester="Winter"></div>
-                <button class="add-course-btn" data-year="5" data-semester="Winter">+</button>
-            </td>
-            <td>
-                <div class="course-container" data-semester="Summer"></div>
-                <button class="add-course-btn" data-year="5" data-semester="Summer">+</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
 
     <!-- Modal for Adding Courses -->
     <div id="courseModal" class="modal">
@@ -137,10 +45,12 @@
         </div>
     </div>
 
+    <button id="add-timetable-btn">New Timetable</button>
 </div>
 
 <div class="footer">
     &copy; 2024 CourseCompass
 </div>
+<script src="/js/plan.js"></script>
 </body>
 </html>

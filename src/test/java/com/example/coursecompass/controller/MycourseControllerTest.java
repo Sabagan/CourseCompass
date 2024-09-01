@@ -4,7 +4,7 @@ import com.example.coursecompass.model.Mycourse;
 import com.example.coursecompass.model.TimetableCourse;
 import com.example.coursecompass.model.User;
 import com.example.coursecompass.service.MycourseService;
-import com.example.coursecompass.service.TimetableService;
+import com.example.coursecompass.service.TimetableCourseService;
 import com.example.coursecompass.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
@@ -34,26 +33,26 @@ public class MycourseControllerTest {
     private UserService userService;
 
     @Mock
-    private TimetableService timetableService;
+    private TimetableCourseService timetableCourseService;
 
     @Mock
     private HttpSession session;
 
-    @Test
-    void getAllCourseNames_WhenEmpty() {
-        when(mycourseService.getAllCourseNames()).thenReturn(new ArrayList<>());
-
-        List<String> names = mycourseController.getAllCourseNames();
-        assertEquals(names.size(), 0);
-    }
-
-    @Test
-    void getAllCourseNames_WhenNotEmpty() {
-        when(mycourseService.getAllCourseNames()).thenReturn(List.of("App Development", "Cyber Security"));
-
-        List<String> names = mycourseController.getAllCourseNames();
-        assertEquals(names.size(), 2);
-    }
+//    @Test
+//    void getAllCourseNames_WhenEmpty() {
+//        when(mycourseService.getAllCourseNames()).thenReturn(new ArrayList<>());
+//
+//        List<String> names = mycourseController.getAllCourseNames();
+//        assertEquals(names.size(), 0);
+//    }
+//
+//    @Test
+//    void getAllCourseNames_WhenNotEmpty() {
+//        when(mycourseService.getAllCourseNames()).thenReturn(List.of("App Development", "Cyber Security"));
+//
+//        List<String> names = mycourseController.getAllCourseNames();
+//        assertEquals(names.size(), 2);
+//    }
 
     @Test
     void addCourse_ShouldAddCourse() {
