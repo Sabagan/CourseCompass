@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load existing plan from the database
     setTimeout(() => {
         loadPlan();
-    }, 1000);
+    }, 100);
 
     // Modal elements
     const courseModal = document.getElementById('courseModal');
@@ -14,6 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const addCourseToPlanBtn = document.getElementById('addCourseToPlan');
     const coursePlanContainer = document.getElementById('coursePlanContainer');
     let currentYear, currentSemester, currentTimetable;
+
+    $('h2').click(function () {
+       $(this).next('div').toggle();
+    });
 
     // Use event delegation to handle dynamically added .add-course-btn elements
     document.body.addEventListener('click', (event) => {
@@ -53,6 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function buildTimetable(timetableId) {
         coursePlanContainer.insertAdjacentHTML("beforeend", `
+                <h2 style="cursor: pointer; color: white;" onclick="$(this).next('div').toggle();">Timetable #${timetableId}</h2>
+                <div style="display: none;">
                     <table data-timetable="${timetableId}">
                         <thead>
                             <tr>
@@ -65,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <tbody id="years-container-${timetableId}"> 
                         </tbody>
                     </table>
+                </div>
                `);
 
         addYears(timetableId);
