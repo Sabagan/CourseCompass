@@ -26,6 +26,10 @@ public class TimetableCourseService {
         timetableCourseDao.removeCourseFromTimetable(userId, courseName);
     }
 
+    public void removeCourseFromTimetable(Long userId, Integer timetableId) {
+        timetableCourseDao.removeCourseFromTimetable(userId, timetableId);
+    }
+
     public List<TimetableCourse> findByUserId(Long userId) {
         return timetableCourseDao.findByUserId(userId);
     }

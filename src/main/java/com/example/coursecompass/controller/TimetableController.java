@@ -153,4 +153,20 @@ public class TimetableController {
 
         timetableService.removeCourseFromTimetable(userId, timetableId, courseName, year, semester);
     }
+
+    @Tag(name = "TimetablePlanServiceController", description = "All methods involving the timetables on the plan")
+    @Operation(summary = "Removes a timetable",
+            description = "The specified timetable will be removed from the plan. This will also involve removing the courses that were in that timetable originally.")
+    @DeleteMapping("/removeTimetable")
+    public void removeTimetable(@RequestParam int timetableId, HttpSession session) {
+        String username = (String) session.getAttribute("loggedInUser");
+        User loggedInUser = userService.findUserByUsername(username);
+        Long userId = loggedInUser.getId();
+
+        List<TimetableCourse> courses = timetableService.findByUserTimetableId(userId, timetableId);
+        if (!courses.isEmpty()) {
+            timetableService.removeCourseFromTimetable(userId, timetableId);
+        }
+        timetablePlanService.deleteTimetable(userId, timetableId);
+    }
 }

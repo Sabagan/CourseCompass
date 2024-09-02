@@ -30,6 +30,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    document.body.addEventListener('click', (event) => {
+        if (event.target.classList.contains('adjust-years-btn')) {
+            currentTimetable = event.target.dataset.timetable;
+            showTimetableModal(currentTimetable);
+        }
+    });
+
+    document.body.addEventListener('click', (event) => {
+       if (event.target.classList.contains('delete-timetable-btn')) {
+           currentTimetable = event.target.dataset.timetable;
+           removeTimetable(currentTimetable);
+       }
+    });
+
     document.querySelector('.close').addEventListener('click', hideModal);
 
     addCourseToPlanBtn.addEventListener('click', addCourseToPlan);
@@ -40,6 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function hideModal() {
         courseModal.style.display = 'none';
+    }
+
+    function showTimetableModal(timetableId) {
+        alert('Opened timetable Modal' + timetableId);
     }
 
     const addTimetableBtn = document.getElementById('add-timetable-btn');
@@ -57,8 +75,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function buildTimetable(timetableId) {
         coursePlanContainer.insertAdjacentHTML("beforeend", `
-                <h2 style="cursor: pointer; color: white;" onclick="$(this).next('div').toggle();">Timetable #${timetableId}</h2>
-                <div style="display: none;">
+                <h2 class="timetable-heading" style="cursor: pointer; color: white;" onclick="$(this).next('div').toggle();">Timetable #${timetableId}</h2>
+                <div class="timetable-container" style="background-color: #d0e1f9; display: none; padding: 10px 20px 10px 20px;">
+                    <button style="background-color: #e2991a; color: white; border: none;" class="adjust-years-btn" data-timetable="${timetableId}">Adjust Years</button>
+                    <button style="background-color: #e2991a; color: white; border: none;" class="delete-timetable-btn" data-timetable="${timetableId}">Delete</button>
                     <table data-timetable="${timetableId}">
                         <thead>
                             <tr>
@@ -258,6 +278,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error('Error removing course:', error);
+        }
+    }
+
+    async function removeTimetable(timetableId) {
+        try {
+            const response = await fetch(`/api/timetable/removeTimetable?timetableId=${timetableId}`, {
+                method: 'DELETE'
+            });
+            if (response.ok) {
+                // Temporarily hide the timetable until it is removed entirely on page reload
+                $(`.timetable-heading`).filter(function () {
+                    return $(this).text().trim().startsWith(`Timetable #${timetableId}`);
+                }).hide();
+                $('.timetable-heading').next('div').hide();
+            } else {
+                console.error('Failed to remove timetable');
+            }
+        } catch (error) {
+            console.error('Error removing timetable:', error);
         }
     }
 });

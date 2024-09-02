@@ -31,6 +31,11 @@ public class TimetableCourseDao {
         jdbcTemplate.update(sql, userId, courseName);
     }
 
+    public void removeCourseFromTimetable(Long userId, Integer timetableId) {
+        String sql = "DELETE FROM timetable WHERE user_id = ? AND timetable_id = ?";
+        jdbcTemplate.update(sql, userId, timetableId);
+    }
+
     public List<TimetableCourse> findByUserId(Long userId) {
         String sql = "SELECT * FROM timetable WHERE user_id = ?";
         return jdbcTemplate.query(sql, new Object[]{userId}, new TimetableCourseRowMapper());
