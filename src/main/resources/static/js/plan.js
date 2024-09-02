@@ -267,12 +267,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const removeBtn = document.createElement('button');
         removeBtn.textContent = '-';
         removeBtn.className = 'remove-course-btn';
-        removeBtn.style.marginLeft = '10px';
-        removeBtn.style.backgroundColor = 'red';
-        removeBtn.style.color = 'white';
-        removeBtn.style.border = 'none';
-        removeBtn.style.marginTop = '12px';
-        removeBtn.style.marginBottom = '12px';
 
         removeBtn.addEventListener('click', () => removeCourseFromPlan(timetable, year, semester, course.courseName));
 
