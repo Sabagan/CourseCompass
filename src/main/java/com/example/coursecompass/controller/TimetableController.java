@@ -82,6 +82,12 @@ public class TimetableController {
         User loggedInUser = userService.findUserByUsername(username);
         Long id = loggedInUser.getId();
 
+        Integer prevYears = timetablePlanService.getYearsForTimetable(id, timetableId);
+        while (years < prevYears) {
+            timetableService.removeCourseFromTimetable(id, timetableId, prevYears);
+            prevYears--;
+        }
+
         timetablePlanService.updateTimetable(id, timetableId, years);
     }
 

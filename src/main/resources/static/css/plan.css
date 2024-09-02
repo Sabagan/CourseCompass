@@ -59,7 +59,7 @@ th {
     max-width: 500px;
 }
 
-.close {
+.close, .close-btn {
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -67,7 +67,9 @@ th {
 }
 
 .close:hover,
-.close:focus {
+.close:focus,
+.close-btn:hover,
+.close-btn:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;

@@ -10,9 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Modal elements
     const courseModal = document.getElementById('courseModal');
+    const yearModal = document.getElementById('yearModal');
     const courseSelect = document.getElementById('courseSelect');
     const addCourseToPlanBtn = document.getElementById('addCourseToPlan');
     const coursePlanContainer = document.getElementById('coursePlanContainer');
+    const modifyYearBtn = document.getElementById('modify-year-btn');
+    const yearNumberInput = document.getElementById('yearNumber');
     let currentYear, currentSemester, currentTimetable;
 
     $('h2').click(function () {
@@ -45,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.querySelector('.close').addEventListener('click', hideModal);
+    document.querySelector('.close-btn').addEventListener('click', hideTimetableModal);
 
     addCourseToPlanBtn.addEventListener('click', addCourseToPlan);
 
@@ -57,7 +61,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showTimetableModal(timetableId) {
-        alert('Opened timetable Modal' + timetableId);
+        fetch(`/api/timetable/${timetableId}`)
+            .then(r => r.json())
+            .then(data => {
+                yearNumberInput.value = data;
+                yearModal.style.display = 'block';
+            });
+    }
+
+    function hideTimetableModal() {
+        yearModal.style.display = 'none';
     }
 
     const addTimetableBtn = document.getElementById('add-timetable-btn');
