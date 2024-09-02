@@ -74,9 +74,9 @@ public class TimetableController {
     @Tag(name = "TimetableCourseServiceController", description = "All methods involving the courses in the timetable")
     @Operation(summary = "Update a Timetable",
             description = "Updates a Timetable based on the timetableId. The update changes the number of years for the specific timetable.")
-    @PostMapping("/updateTimetable{timetableId}?{years}")
-    public void updateTimetable(@Parameter(description = "ID of Timetable", required = true) @PathVariable Integer timetableId,
-                                @Parameter(description = "Number of Years for the Timetable", required = true) @PathVariable Integer years,
+    @PostMapping("/updateTimetable")
+    public void updateTimetable(@Parameter(description = "ID of Timetable", required = true) @RequestParam Integer timetableId,
+                                @Parameter(description = "Number of Years for the Timetable", required = true) @RequestParam Integer years,
                                 HttpSession session) {
         String username = (String) session.getAttribute("loggedInUser");
         User loggedInUser = userService.findUserByUsername(username);

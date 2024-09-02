@@ -73,6 +73,20 @@ document.addEventListener('DOMContentLoaded', () => {
         yearModal.style.display = 'none';
     }
 
+    modifyYearBtn.addEventListener('click', () => {
+        const yearsToChangeTo = yearNumberInput.value;
+        fetch(`/api/timetable/updateTimetable?timetableId=${currentTimetable}&years=${yearsToChangeTo}`, {
+            method: 'POST'
+        })
+            .then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                    // Add jquery to add or removeyears
+                }
+            })
+            .catch(err => console.error(err));
+    });
+
     const addTimetableBtn = document.getElementById('add-timetable-btn');
     addTimetableBtn.addEventListener('click', () => {
         fetch('api/timetable/newTimetable', {
