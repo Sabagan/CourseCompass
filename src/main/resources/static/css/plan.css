@@ -74,3 +74,22 @@ th {
     text-decoration: none;
     cursor: pointer;
 }
+
+.course {
+    position: relative;
+}
+
+.course .remove-course-btn {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateY(-60%);
+}
+
+.course:hover .remove-course-btn {
+    display: inline-block;
+}
+
+#modify-year-btn, .adjust-years-btn, .delete-timetable-btn, #add-timetable-btn {
+    cursor: pointer;
+}
