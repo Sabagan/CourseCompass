@@ -106,7 +106,7 @@ Open the web browser and navigate to `https:localhost:8080` to access the applic
 ![image](https://github.com/user-attachments/assets/9e7a428c-aac5-477e-9ca1-1d10e521dd4a)
 
 ### Timetable Maker
-![image](https://github.com/user-attachments/assets/7f6562b8-cc8d-4e6c-bb17-c1a20af4db0c)
+![image](https://github.com/user-attachments/assets/a9ffdfda-3998-4c1e-aa87-931b47d66851)
 
 
 ## 🛠️ Important to Note 📌
