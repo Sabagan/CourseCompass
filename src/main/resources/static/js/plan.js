@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addCourseToPlanBtn = document.getElementById('addCourseToPlan');
     const coursePlanContainer = document.getElementById('coursePlanContainer');
     const modifyYearBtn = document.getElementById('modify-year-btn');
+    const addTimetableBtn = document.getElementById('add-timetable-btn');
     const yearNumberInput = document.getElementById('yearNumber');
     let currentYear, currentSemester, currentTimetable;
 
@@ -87,14 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.error(err));
     });
 
-    const addTimetableBtn = document.getElementById('add-timetable-btn');
     addTimetableBtn.addEventListener('click', () => {
-        fetch('api/timetable/newTimetable', {
+        fetch(`api/timetable/newTimetable`, {
             method: 'POST'
         })
             .then(response => response.json())
             .then(timetableId => {
-                console.log(timetableId);
                 buildTimetable(timetableId);
             })
             .catch(err => console.error(err));
@@ -241,10 +240,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const plan = await response.json();
             plan.forEach(({ timetableId, year, semester, courseName }) => {
-                console.log('timetableId', timetableId);
-                console.log('year', year);
-                console.log('semester', semester);
-                console.log('courseName', courseName);
                 addCourseToDOM(timetableId, year, semester, { courseName });
             });
         } catch (error) {
@@ -265,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         courseElement.textContent = course.courseName;
 
         const removeBtn = document.createElement('button');
-        removeBtn.textContent = '-';
+        removeBtn.textContent = 'X';
         removeBtn.className = 'remove-course-btn';
 
         removeBtn.addEventListener('click', () => removeCourseFromPlan(timetable, year, semester, course.courseName));
