@@ -68,6 +68,16 @@ user_id      | bigint(20)    | No   | None
 year         | varchar(255)  | No   | None
 semester     | text          | No   | None
 course_name  | varchar(255)  | No   | None
+timetable_id | int(11)       | No   | 1
+```
+
+#### Timetables Table
+```
+Name         | Type          | Null | Default
+user_id      | bigint(20)    | Yes  | NULL    
+years        | int(11)       | No   | None
+title        | varchar(255)  | No   | None
+timetable_id | bigint(20)    | No   | None     -->  Auto_Incremenet
 ```
 
 ### 🏗️ Build and Run the Application
