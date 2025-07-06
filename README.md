@@ -68,6 +68,15 @@ user_id      | bigint(20)    | No   | None
 year         | varchar(255)  | No   | None
 semester     | text          | No   | None
 course_name  | varchar(255)  | No   | None
+timetable_id | int(11)       | No   | 1
+```
+
+#### Timetables Table
+```
+Name         | Type          | Null | Default
+user_id      | bigint(20)    | Yes  | NULL    
+years        | int(11)       | No   | None
+timetable_id | bigint(20)    | No   | None     -->  Auto_Incremenet
 ```
 
 ### 🏗️ Build and Run the Application
@@ -84,17 +93,20 @@ Open the web browser and navigate to `https:localhost:8080` to access the applic
 ### Home Page
 ![image](https://github.com/user-attachments/assets/2d6803d0-c4ac-4967-a101-d8f5e69c5441)
 
+### Login Page
+![image](https://github.com/user-attachments/assets/933599cd-dad7-4695-b1c0-4a620b67097a)
+
 ### Account Management
 ![image](https://github.com/user-attachments/assets/32faa259-5016-4503-82e9-4c90b6f96cec)
 
-### Course Cataloge
+### Course Catalog
 ![image](https://github.com/user-attachments/assets/5e0b9be4-1365-4fa5-b478-3ad2fdcdd503)
 
 ### Course Cart
 ![image](https://github.com/user-attachments/assets/9e7a428c-aac5-477e-9ca1-1d10e521dd4a)
 
 ### Timetable Maker
-![image](https://github.com/user-attachments/assets/7f6562b8-cc8d-4e6c-bb17-c1a20af4db0c)
+![image](https://github.com/user-attachments/assets/a9ffdfda-3998-4c1e-aa87-931b47d66851)
 
 
 ## 🛠️ Important to Note 📌
