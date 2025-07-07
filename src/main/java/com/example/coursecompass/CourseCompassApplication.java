@@ -13,13 +13,13 @@ public class CourseCompassApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CourseCompassApplication.class, args);
-		try {
-			// Wait briefly for server to start
-			Thread.sleep(2000);
-			Desktop.getDesktop().browse(new URI("http://localhost:8080"));
-		} catch (Exception e) {
-			System.err.println("Failed to launch browser: " + e.getMessage());
-		}
+//		try {
+//			// Wait briefly for server to start
+//			Thread.sleep(2000);
+//			Desktop.getDesktop().browse(new URI("http://localhost:8080"));
+//		} catch (Exception e) {
+//			System.err.println("Failed to launch browser: " + e.getMessage());
+//		}
 	}
 
 }
