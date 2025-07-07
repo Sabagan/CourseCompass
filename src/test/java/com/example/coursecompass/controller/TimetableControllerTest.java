@@ -87,7 +87,7 @@ public class TimetableControllerTest {
         when(userService.findUserByUsername("testUser")).thenReturn(mockUser);
 
         List<TimetableCourse> timetableCourses = List.of(timetableCourse1);
-        when(timetableCourseService.findByUserId(mockUser.getId())).thenReturn(timetableCourses);
+        when(timetableCourseService.findByUserTimetableId(mockUser.getId(), 1)).thenReturn(timetableCourses);
 
         List<Mycourse> mycourses = List.of(mycourse1, mycourse2);
         when(mycourseService.findByUserId(mockUser.getId())).thenReturn(mycourses);
@@ -132,7 +132,7 @@ public class TimetableControllerTest {
         when(userService.findUserByUsername("testUser")).thenReturn(mockUser);
 
         List<TimetableCourse> timetableCourses = List.of(timetableCourse1, timetableCourse2);
-        when(timetableCourseService.findByUserId(mockUser.getId())).thenReturn(timetableCourses);
+        when(timetableCourseService.findByUserTimetableId(mockUser.getId(), 1)).thenReturn(timetableCourses);
 
         List<Mycourse> mycourses = List.of(mycourse1, mycourse2);
         when(mycourseService.findByUserId(mockUser.getId())).thenReturn(mycourses);
