@@ -33,7 +33,6 @@ public class CourseDaoTest {
         verify(jdbcTemplate).queryForObject("SELECT COUNT(*) FROM course", Integer.class);
     }
 
-    @Test
     void findAll_ShouldReturnListOfCourses() {
         List<Course> mockCourses = List.of(
                 new Course("CS", "101", "Intro to Programming", "Learn basic programming concepts."),

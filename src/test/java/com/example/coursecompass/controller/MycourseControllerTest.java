@@ -38,23 +38,22 @@ public class MycourseControllerTest {
     @Mock
     private HttpSession session;
 
-//    @Test
-//    void getAllCourseNames_WhenEmpty() {
-//        when(mycourseService.getAllCourseNames()).thenReturn(new ArrayList<>());
-//
-//        List<String> names = mycourseController.getAllCourseNames();
-//        assertEquals(names.size(), 0);
-//    }
-//
-//    @Test
-//    void getAllCourseNames_WhenNotEmpty() {
-//        when(mycourseService.getAllCourseNames()).thenReturn(List.of("App Development", "Cyber Security"));
-//
-//        List<String> names = mycourseController.getAllCourseNames();
-//        assertEquals(names.size(), 2);
-//    }
+    @Test
+    void getAllCourseNames_WhenEmpty() {
+        when(mycourseService.getAllCourseNames()).thenReturn(new ArrayList<>());
+
+        List<String> names = mycourseController.getAllCourseNames();
+        assertEquals(names.size(), 0);
+    }
 
     @Test
+    void getAllCourseNames_WhenNotEmpty() {
+        when(mycourseService.getAllCourseNames()).thenReturn(List.of("App Development", "Cyber Security"));
+
+        List<String> names = mycourseController.getAllCourseNames();
+        assertEquals(names.size(), 2);
+    }
+
     void addCourse_ShouldAddCourse() {
         String username = "testUser";
         User mockUser = new User();

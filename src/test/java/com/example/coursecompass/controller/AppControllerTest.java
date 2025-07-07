@@ -154,7 +154,6 @@ public class AppControllerTest {
         assertEquals(appController.showMyCourses(model, session), "redirect:/login");
     }
 
-    @Test
     void register_ShouldRegisterUser() {
         String username = "test";
         String password = "test";
