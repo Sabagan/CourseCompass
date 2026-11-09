@@ -13,8 +13,7 @@ Course Compass is a web application that allows users to browse courses, add cou
 
 - ☕ Java 17 or higher
 - 🛠️ Maven 3.6.3 or higher
-- 🐬 MySQL 8.0 or higher
-- 🔧 XAMPP or any other tool to manage MySQL databases (phpMyAdmin)
+- 🐳 Docker with Docker Compose
 - 📦 Postman if you want to test out the APIs
 
 ## 🚀 Getting Started
@@ -26,58 +25,33 @@ git clone https://github.com/your-username/course-compass.git
 cd course-compass
 ```
 
-### 🗄️ Setup the Database
+### 🗄️ Start the Database
 
-Ensure XAMPP is running, specifically the Apache and MySQL services. You can start XAMPP using the XAMPP Control Panel. Open phpMyAdmin and create a database course_compass. Then create the necessary tables:
+MySQL runs in Docker, so nothing needs to be installed or configured by hand. XAMPP and phpMyAdmin are not required.
 
-#### User Table
-```
-Name      | Type          | Null | Default
-id        | bigint(20)    | No   | None     -->  Auto_Incremenet
-username  | varchar(255)  | No   | None
-password  | varchar(255)  | No   | None
-dob       | datetime(6)   | No   | None
-email     | varchar(255)  | No   | None 
-name      | varchar(255)  | NO   | None
+```bash
+docker compose up -d
 ```
 
-#### Course Table
-```
-Name                | Type          | Null  | Default
-id                  | bigint(20)    | No    | None     -->  Auto_Incremenet
-course_code         | varchar(255)  | Yes   | NULL
-course_description  | text          | Yes   | NULL
-course_name         | varchar(255)  | Yes   | NULL
-course_program      | varchar(255)  | Yes   | NULL
+This starts a MySQL 8.0 container and creates the `coursecompass` database. Data is kept in the `mysql-data` Docker volume, so it survives restarts. To wipe the database and start over:
+
+```bash
+docker compose down -v
 ```
 
-#### MyCourses Table
-```
-Name                | Type          | Null   | Default
-user_id             | bigint(20)    | Yes    | NULL 
-course_code         | varchar(255)  | No     | None
-course_description  | text          | No     | None
-course_name         | varchar(255)  | No     | None
-course_program      | varchar(255)  | No     | None
-```
+The tables themselves are created by the application: on startup Spring Boot runs `src/main/resources/schema.sql` (`spring.sql.init.mode=always`), so no manual table creation is needed. The script uses `CREATE TABLE IF NOT EXISTS`, so existing data is preserved across restarts.
 
-#### Timetable Table
-```
-Name         | Type          | Null | Default
-user_id      | bigint(20)    | No   | None    
-year         | varchar(255)  | No   | None
-semester     | text          | No   | None
-course_name  | varchar(255)  | No   | None
-timetable_id | int(11)       | No   | 1
-```
+Connection settings live in `src/main/resources/application.properties` and match `docker-compose.yml`:
 
-#### Timetables Table
-```
-Name         | Type          | Null | Default
-user_id      | bigint(20)    | Yes  | NULL    
-years        | int(11)       | No   | None
-timetable_id | bigint(20)    | No   | None     -->  Auto_Incremenet
-```
+| Setting  | Default     |
+|----------|-------------|
+| Host     | `localhost` |
+| Port     | `3306`      |
+| Database | `coursecompass` |
+| Username | `root`      |
+| Password | `root`      |
+
+They can be overridden with the `DB_URL`, `DB_USERNAME` and `DB_PASSWORD` environment variables.
 
 ### 🏗️ Build and Run the Application
 
@@ -86,7 +60,15 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-Open the web browser and navigate to `https:localhost:8080` to access the application.
+Open the web browser and navigate to `https://localhost:8080` to access the application.
+
+### ✅ Running the Tests
+
+```bash
+mvn test
+```
+
+Tests use an in-memory H2 database in MySQL compatibility mode (see `src/test/resources/application.properties`), so Docker does not need to be running for them.
 
 ## ✨ View of the Application
 
@@ -111,18 +93,27 @@ Open the web browser and navigate to `https:localhost:8080` to access the applic
 
 ## 🛠️ Important to Note 📌
 
-- MySQL must be running and the details for it in application.properties must be correct
+- The MySQL container must be running before the application starts (`docker compose up -d`)
 - All dependencies must be installed you can use the ``mvn clean install`` in the case that it is highlighted, indicating a dependency wasn't installed
 - You might need to re-load the IDE
 - If you wish to use this for another institution, you will need to adjust the WebScraping python file to match the structure of the page you are obtaining the course data from OR if you happen to have a JSON-file following the same structure you could just use that.
 - Ensure project files are in the correct locations, if you move files around, ensure you refactor changes if necessary
 
 ## Debugging
-If not running at all, possibly due to XAMPP and phpMyAdmin (based on my experience) and if that's the case the following should help:
+
+If the application cannot connect to MySQL:
+
+```bash
+# Check that the container is running and healthy
+docker compose ps
+
+# Follow the MySQL logs
+docker compose logs -f mysql
 ```
-Rename folder mysql/data to mysql/data_old
-Make a copy of mysql/backup folder and name it as mysql/data
-Copy all your database folders from mysql/data_old into mysql/data (except mysql, performance_schema, and phpmyadmin folders)
-Copy mysql/data_old/ibdata1 file into mysql/data folder
-Start MySQL from XAMPP control panel, If it is started already then restart it.
+
+If the database was created with an incompatible schema, reset it and let the application recreate the tables:
+
+```bash
+docker compose down -v
+docker compose up -d
 ```
